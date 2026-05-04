@@ -1,0 +1,267 @@
+/* Переменные цветов */
+:root {
+  --bg:        #FFFAFA;
+  --surface:   #FFFFFF;
+  --border:    #E0E0E0;
+  --text:      #111111;
+  --muted:     #888888;
+  --accent:    #111111;
+  --done:      #BBBBBB;
+  --danger:    #E32636;
+  --radius:    6px;
+  --font:      'Courier New', Courier, monospace;
+
+  --w-correct: #4a9e5c;
+  --w-present: #c9a227;
+  --w-absent:  #999999;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  min-height: 100vh;
+}
+
+/* основной контейнер - узкая колонка по центру */
+.app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Панель API */
+.api-panel {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.api-block {
+  flex: 1;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.api-divider { width: 1px; background: var(--border); }
+
+.api-block-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.api-select {
+  font-family: var(--font);
+  font-size: 12px;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  outline: none;
+  width: 100%;
+}
+.api-select:focus { border-color: var(--accent); }
+
+.api-values { display: flex; flex-direction: column; gap: 2px; font-size: 13px; font-weight: 500; }
+.api-loading { color: var(--muted); font-size: 12px; }
+.api-error   { color: var(--danger); font-size: 12px; }
+
+/* Задачи */
+.todo-title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.todo-count {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+  background: var(--border);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+form { display: flex; margin-bottom: 24px; }
+
+input[type="text"] {
+  flex: 1;
+  font-family: var(--font);
+  font-size: 14px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-right: none;
+  border-radius: var(--radius) 0 0 var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s;
+}
+input[type="text"]:focus { border-color: var(--accent); }
+input[type="text"]::placeholder { color: var(--muted); }
+
+button {
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 18px;
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+button:hover { opacity: 0.85; }
+
+.todo-list { display: flex; flex-direction: column; gap: 1px; }
+.todo-empty { color: var(--muted); font-size: 13px; padding: 20px 0; }
+
+.item-todo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: background 0.1s;
+}
+.item-todo:hover { background: #fafafa; }
+
+.item-text { flex: 1; cursor: pointer; line-height: 1.4; transition: color 0.15s; }
+.strike { text-decoration: line-through; color: var(--done); }
+
+.item-delete {
+  font-size: 16px;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 3px;
+  transition: color 0.15s, background 0.15s;
+  user-select: none;
+}
+.item-delete:hover { color: var(--danger); background: #ffeaea; }
+
+/* WORDLE */
+.wordle {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 300px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+  z-index: 100;
+}
+
+.wordle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wordle-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* кнопка "Новая игра" - переопределяем общий button */
+.wordle-reset {
+  font-size: 11px !important;
+  padding: 3px 8px !important;
+  background: transparent !important;
+  color: var(--muted) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+}
+.wordle-reset:hover {
+  color: var(--text) !important;
+  border-color: var(--text) !important;
+  opacity: 1 !important;
+}
+
+/* сетка */
+.wordle-grid { display: flex; flex-direction: column; gap: 3px; }
+.wordle-row  { display: flex; gap: 3px; justify-content: center; }
+
+.wordle-cell {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+}
+
+.wordle-cell.correct { background: var(--w-correct); border-color: var(--w-correct); color: #fff; }
+.wordle-cell.present { background: var(--w-present); border-color: var(--w-present); color: #fff; }
+.wordle-cell.absent  { background: var(--w-absent);  border-color: var(--w-absent);  color: #fff; }
+.wordle-cell.active  { border-color: var(--text); }
+
+/* сообщения */
+.wordle-msg { font-size: 11px; color: var(--muted); text-align: center; }
+.wordle-win { color: var(--w-correct); font-weight: 600; }
+
+/* клавиатура */
+.wordle-keyboard { display: flex; flex-direction: column; gap: 3px; align-items: center; }
+.wordle-kb-row   { display: flex; gap: 2px; }
+
+.wordle-key {
+  font-family: var(--font);
+  font-size: 10px;
+  font-weight: 600;
+  width: 22px;
+  height: 30px;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 3px !important;
+  background: var(--border);
+  color: var(--text);
+  cursor: pointer;
+  transition: opacity 0.1s, background 0.2s, color 0.2s;
+}
+.wordle-key:hover { opacity: 0.75; }
+
+.wordle-key.correct { background: var(--w-correct); color: #fff; }
+.wordle-key.present { background: var(--w-present); color: #fff; }
+.wordle-key.absent  { background: var(--w-absent);  color: #fff; }
+
+.wordle-enter {
+  width: auto !important;
+  padding: 0 10px !important;
+  font-size: 10px;
+}
+.wordle-enter:disabled { opacity: 0.35; cursor: default; }
