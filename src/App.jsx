@@ -52,7 +52,6 @@ function App() {
         let usd, eur;
         if (currencyId === 'cbr') {
             const res = await axios.get('https://cbr-xml-daily.ru');
-          );
           usd = res.data.Valute.USD.Value.toFixed(2);
           eur = res.data.Valute.EUR.Value.toFixed(2);
         } else {
