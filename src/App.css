@@ -9,7 +9,7 @@
   --done:      #BBBBBB;
   --danger:    #E32636;
   --radius:    6px;
-  --font:      'Courier New', Courier, monospace;
+  --font:   'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   --w-correct: #4a9e5c;
   --w-present: #c9a227;
