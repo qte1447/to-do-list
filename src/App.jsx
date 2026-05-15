@@ -6,7 +6,6 @@ import Wordle from './Wordle';
 import axios from 'axios';
 
 const TASKS_KEY = 'todo-tasks';
-const WEATHER_KEY = 'c7616da4b68205c2f3ae73df2c31d177';
 
 const CITIES = [
   { name: 'Москва',          lat: 55.7558, lon: 37.6176 },
@@ -62,11 +61,13 @@ function App() {
           eur = (1 / res.data.rates.EUR).toFixed(2);
         }
         setRates({ usd, eur });
+        
         const city = CITIES[cityIndex];
+        // Запрос к Open-Meteo API с параметрами текущей погоды
         const wRes = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&appid=${WEATHER_KEY}`
+          `https://open-meteo.com{city.lat}&longitude=${city.lon}&current=temperature_2m,wind_speed_10m,cloud_cover`
         );
-        setWeather(wRes.data);
+        setWeather(wRes.data.current);
       } catch (err) {
         console.error(err);
         setError('ошибка загрузки данных');
@@ -85,7 +86,6 @@ function App() {
   const toggleTask = (id) => setTodos(todos.map(t =>
     t.id === id ? { ...t, complete: !t.complete } : t
   ));
-  const toCelsius  = (k) => (k - 273.15).toFixed(1);
 
   return (
     <div className="app">
@@ -116,9 +116,10 @@ function App() {
           {!loading && error && <span className="api-error">недоступно</span>}
           {!loading && !error && weather && (
             <div className="api-values">
-              <span>🌡 {toCelsius(weather.main.temp)}°C</span>
-              <span>💨 {weather.wind.speed} м/с</span>
-              <span>☁️ {weather.clouds.all}%</span>
+              {/* Данные Open-Meteo уже возвращаются в градусах Цельсия и м/с */}
+              <span>🌡 {weather.temperature_2m.toFixed(1)}°C</span>
+              <span>💨 {weather.wind_speed_10m} км/ч</span>
+              <span>☁️ {weather.cloud_cover}%</span>
             </div>
           )}
         </div>
@@ -146,4 +147,5 @@ function App() {
 }
 
 export default App;
+
 
