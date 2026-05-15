@@ -6,27 +6,28 @@ import Wordle from './Wordle';
 import axios from 'axios';
 
 const TASKS_KEY = 'todo-tasks';
+const WEATHER_KEY = 'c7616da4b68205c2f3ae73df2c31d177';
 
 const CITIES = [
-  { name: 'Москва', city: 'Москва' },
-  { name: 'Санкт-Петербург', city: 'Санкт-Петербург' },
-  { name: 'Краснодар', city: 'Краснодар' },
-  { name: 'Усинск', city: 'Усинск' },
-  { name: 'Сыктывкар', city: 'Сыктывкар' },
+  { name: 'Москва',          lat: 55.7558, lon: 37.6176 },
+  { name: 'Санкт-Петербург', lat: 59.9343, lon: 30.3351 },
+  { name: 'Краснодар',       lat: 45.0355, lon: 38.9753 },
+  { name: 'Усинск',          lat: 65.9942, lon: 57.5311 },
+  { name: 'Сыктывкар',       lat: 61.6688, lon: 50.8357 },
 ];
 
 const CURRENCY_SOURCES = [
-  { name: 'ЦБ РФ', id: 'cbr' },
-  { name: 'ExchangeRate-API', id: 'era' },
+  { name: 'ЦБ РФ (через proxy)', id: 'cbr' },
+  { name: 'ExchangeRate-API',    id: 'era' },
 ];
 
 function App() {
-  const [rates, setRates] = useState(null);
+  const [rates, setRates]     = useState(null);
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [cityIndex, setCityIndex] = useState(0);
-  const [currencyId, setCurrencyId] = useState('cbr');
+  const [error, setError]     = useState('');
+  const [cityIndex, setCityIndex]   = useState(0);
+  const [currencyId, setCurrencyId] = useState('era');
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
@@ -35,9 +36,7 @@ function App() {
       try {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) setTodos(parsed);
-      } catch {
-        console.error('ошибка чтения задач');
-      }
+      } catch { console.error('ошибка чтения задач'); }
     }
   }, []);
 
@@ -48,13 +47,13 @@ function App() {
   useEffect(() => {
     setLoading(true);
     setError('');
-
     async function fetchData() {
       try {
-        // 💰 Курсы валют — без изменений, работает отлично
         let usd, eur;
         if (currencyId === 'cbr') {
-          const res = await axios.get('https://www.cbr-xml-daily.ru/daily_json.js');
+          const res = await axios.get(
+            'https://corsproxy.io/?' + encodeURIComponent('https://www.cbr-xml-daily.ru/daily_json.js')
+          );
           usd = res.data.Valute.USD.Value.toFixed(2);
           eur = res.data.Valute.EUR.Value.toFixed(2);
         } else {
@@ -63,48 +62,34 @@ function App() {
           eur = (1 / res.data.rates.EUR).toFixed(2);
         }
         setRates({ usd, eur });
-
-        // 🌦️ ПОГОДА — через временный прокси (только для разработки!)
-        const city = CITIES[cityIndex].city;
-        const proxyUrl = 'https://api.allorigins.win/get?url='; // временный прокси
-        const encodedUrl = encodeURIComponent(`https://wttr.in/${encodeURIComponent(city)}?format=j1&lang=ru`);
-        const res = await axios.get(proxyUrl + encodedUrl);
-
-        // Парсим ответ allorigins.win
-        const weatherData = JSON.parse(res.data.contents);
-
-        // Извлекаем нужные данные
-        const temp = weatherData.weather[0].avgtemp_c; // средняя температура в °C
-        const humidity = weatherData.weather[0].humidity;
-        const windSpeed = weatherData.weather[0].windspeed_kph;
-
-        setWeather({
-          temp: temp,
-          humidity: humidity,
-          wind: { speed: windSpeed },
-        });
-
+        const city = CITIES[cityIndex];
+        const wRes = await axios.get(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&appid=${WEATHER_KEY}`
+        );
+        setWeather(wRes.data);
       } catch (err) {
-        console.error('Ошибка загрузки погоды:', err);
-        setError('погода недоступна');
+        console.error(err);
+        setError('ошибка загрузки данных');
       } finally {
         setLoading(false);
       }
     }
-
     fetchData();
   }, [cityIndex, currencyId]);
 
-  const addTask = (text) => {
+  const addTask    = (text) => {
     if (!text.trim()) return;
     setTodos([...todos, { id: Math.random().toString(36).substr(2, 9), task: text, complete: false }]);
   };
-
   const removeTask = (id) => setTodos(todos.filter(t => t.id !== id));
-  const toggleTask = (id) => setTodos(todos.map(t => t.id === id ? { ...t, complete: !t.complete } : t));
+  const toggleTask = (id) => setTodos(todos.map(t =>
+    t.id === id ? { ...t, complete: !t.complete } : t
+  ));
+  const toCelsius  = (k) => (k - 273.15).toFixed(1);
 
   return (
     <div className="app">
+
       {/* 1. api-панель */}
       <div className="api-panel">
         <div className="api-block">
@@ -131,9 +116,9 @@ function App() {
           {!loading && error && <span className="api-error">недоступно</span>}
           {!loading && !error && weather && (
             <div className="api-values">
-              <span>🌡 {weather.temp}°C</span>
-              <span>💨 {weather.wind.speed} км/ч</span>
-              <span>💧 {weather.humidity}%</span>
+              <span>🌡 {toCelsius(weather.main.temp)}°C</span>
+              <span>💨 {weather.wind.speed} м/с</span>
+              <span>☁️ {weather.clouds.all}%</span>
             </div>
           )}
         </div>
@@ -142,7 +127,8 @@ function App() {
       {/* 2. задачи */}
       <div className="todo-section">
         <h1 className="todo-title">
-          Задачи <span className="todo-count">{todos.length}</span>
+          Задачи
+          <span className="todo-count">{todos.length}</span>
         </h1>
         <ToDoForm addTask={addTask} />
         <div className="todo-list">
@@ -153,10 +139,11 @@ function App() {
         </div>
       </div>
 
-      {/* 3. wordle */}
+      {/* 3. wordle — фиксирован в правом нижнем углу экрана */}
       <Wordle />
     </div>
   );
 }
 
 export default App;
+
