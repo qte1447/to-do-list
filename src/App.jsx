@@ -1,9 +1,21 @@
+
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import ToDoForm from './AddTask';
 import ToDo from './Task';
 import Wordle from './Wordle';
 import axios from 'axios';
+import BoredActivity from './components/BoredActivity';
+
+function App() {
+  return (
+    <div>
+      <BoredActivity />
+    </div>
+  );
+}
+
+export default App;
 
 const TASKS_KEY = 'todo-tasks';
 const WEATHER_KEY = 'c7616da4b68205c2f3ae73df2c31d177';
