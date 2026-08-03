@@ -4,6 +4,7 @@ import './App.css';
 import ToDoForm from './AddTask';
 import ToDo from './Task';
 import Wordle from './Wordle';
+import BoredActivity from './BoredActivity';
 import axios from 'axios';
 
 const TASKS_KEY = 'todo-tasks';
