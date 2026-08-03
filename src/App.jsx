@@ -1,154 +1,192 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
-import ToDoForm from './AddTask';
-import ToDo from './Task';
-import Wordle from './Wordle';
-import WorldTime from './WorldTime';
+import ToDoForm from "./AddTask";
+import ToDo from "./Task";
 import axios from 'axios';
+import ApiDocs from "./ApiDocs";
 
-const TASKS_KEY = 'todo-tasks';
-const WEATHER_KEY = 'c7616da4b68205c2f3ae73df2c31d177';
+const TASKS_STORAGE_KEY = 'tasks-list-project-web';
 
-const CITIES = [
-  { name: 'Москва',          lat: 55.7558, lon: 37.6176 },
-  { name: 'Санкт-Петербург', lat: 59.9343, lon: 30.3351 },
-  { name: 'Краснодар',       lat: 45.0355, lon: 38.9753 },
-  { name: 'Усинск',          lat: 65.9942, lon: 57.5311 },
-  { name: 'Сыктывкар',       lat: 61.6688, lon: 50.8357 },
-];
-
-const CURRENCY_SOURCES = [
-  { name: 'ЦБ РФ (через proxy)', id: 'cbr' },
-  { name: 'ExchangeRate-API',    id: 'era' },
-];
+function getWeatherIcon(code) {
+  if (code <= 3) return '01d';
+  if (code <= 48) return '03d';
+  if (code <= 57) return '09d';
+  if (code <= 67) return '10d';
+  if (code <= 77) return '13d';
+  if (code <= 82) return '09d';
+  return '11d';
+}
 
 function App() {
-  const [rates, setRates]     = useState(null);
-  const [weather, setWeather] = useState(null);
+  const [rates, setRates] = useState({});
+  const [crypto, setCrypto] = useState({});
+  const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError]     = useState('');
-  const [cityIndex, setCityIndex]   = useState(0);
-  const [currencyId, setCurrencyId] = useState('era');
-  const [todos, setTodos] = useState([]);
-
-  useEffect(() => {
-    const saved = localStorage.getItem(TASKS_KEY);
-    if (saved) {
+  const [error, setError] = useState('');
+  const [todos, setTodos] = useState(() => {
+    const storedTasks = localStorage.getItem(TASKS_STORAGE_KEY);
+    if (storedTasks) {
       try {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) setTodos(parsed);
-      } catch { console.error('ошибка чтения задач'); }
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem(TASKS_KEY, JSON.stringify(todos));
-  }, [todos]);
-
-  useEffect(() => {
-    setLoading(true);
-    setError('');
-    async function fetchData() {
-      try {
-        let usd, eur;
-        if (currencyId === 'cbr') {
-          const res = await axios.get(
-            'https://corsproxy.io/?' + encodeURIComponent('https://www.cbr-xml-daily.ru/daily_json.js')
-          );
-          usd = res.data.Valute.USD.Value.toFixed(2);
-          eur = res.data.Valute.EUR.Value.toFixed(2);
-        } else {
-          const res = await axios.get('https://open.er-api.com/v6/latest/RUB');
-          usd = (1 / res.data.rates.USD).toFixed(2);
-          eur = (1 / res.data.rates.EUR).toFixed(2);
+        const parsedTasks = JSON.parse(storedTasks);
+        if (Array.isArray(parsedTasks)) {
+          return parsedTasks;
         }
-        setRates({ usd, eur });
-        const city = CITIES[cityIndex];
-        const wRes = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&appid=${WEATHER_KEY}`
+      } catch (e) {
+        console.error('Ошибка при чтении задач из localStorage:', e.message);
+      }
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    async function fetchAllData() {
+      try {
+        const currencyResponse = await axios.get(
+          'https://www.cbr-xml-daily.ru/daily_json.js'
         );
-        setWeather(wRes.data);
+
+        if (!currencyResponse.data || !currencyResponse.data.Valute) {
+          throw new Error('Нет данных о валюте.');
+        }
+
+        const USDrate = currencyResponse.data.Valute.USD.Value.toFixed(4).replace('.', ',');
+        const EURrate = currencyResponse.data.Valute.EUR.Value.toFixed(4).replace('.', ',');
+
+        setRates({ USDrate, EURrate });
+
+        // Криптовалюты
+        const cryptoResponse = await axios.get(
+          'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=rub'
+        );
+        setCrypto({
+          BTC: cryptoResponse.data.bitcoin.rub,
+          ETH: cryptoResponse.data.ethereum.rub
+        });
+
+        const lat = 45.0448;
+        const lon = 38.9760;
+
+        const weatherResponse = await axios.get(
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,cloud_cover,weather_code`
+        );
+
+        if (!weatherResponse.data || !weatherResponse.data.current) {
+          throw new Error('Нет данных о погоде.');
+        }
+
+        const current = weatherResponse.data.current;
+        setWeatherData({
+          main: {
+            temp: current.temperature_2m + 273.15,
+          },
+          wind: {
+            speed: current.wind_speed_10m,
+          },
+          clouds: {
+            all: current.cloud_cover,
+          },
+          weather: [
+            {
+              icon: getWeatherIcon(current.weather_code),
+            }
+          ],
+        });
       } catch (err) {
         console.error(err);
-        setError('ошибка загрузки данных');
+        setError('Ошибка загрузки данных: ' + err.message);
       } finally {
         setLoading(false);
       }
     }
-    fetchData();
-  }, [cityIndex, currencyId]);
 
-  const addTask    = (text) => {
-    if (!text.trim()) return;
-    setTodos([...todos, { id: Math.random().toString(36).substr(2, 9), task: text, complete: false }]);
+    fetchAllData();
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(todos));
+    } catch (error) {
+      console.error('Ошибка при сохранении задач в localStorage:', error.message);
+    }
+  }, [todos]);
+
+  const addTask = (userInput) => {
+    if (userInput) {
+      const newItem = {
+        id: Math.random().toString(36).substr(2, 9),
+        task: userInput,
+        complete: false
+      };
+      setTodos([...todos, newItem]);
+    }
   };
-  const removeTask = (id) => setTodos(todos.filter(t => t.id !== id));
-  const toggleTask = (id) => setTodos(todos.map(t =>
-    t.id === id ? { ...t, complete: !t.complete } : t
-  ));
-  const toCelsius  = (k) => (k - 273.15).toFixed(1);
+
+  const removeTask = (id) => {
+    setTodos([...todos.filter((todo) => todo.id !== id)]);
+  };
+
+  const handleToggle = (id) => {
+    setTodos([
+      ...todos.map((task) =>
+        task.id === id ? { ...task, complete: !task.complete } : { ...task }
+      )
+    ]);
+  };
 
   return (
-    <div className="app">
-
-      {/* 1. api-панель */}
-      <div className="api-panel">
-        <div className="api-block">
-          <div className="api-block-label">Курс валют</div>
-          <select className="api-select" value={currencyId} onChange={e => setCurrencyId(e.target.value)}>
-            {CURRENCY_SOURCES.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
-          </select>
-          {loading && <span className="api-loading">загрузка…</span>}
-          {!loading && error && <span className="api-error">недоступно</span>}
-          {!loading && !error && rates && (
-            <div className="api-values">
-              <span>$ {rates.usd} ₽</span>
-              <span>€ {rates.eur} ₽</span>
+    <>
+      <div className="App">
+        {loading && <p>Загрузка...</p>}
+        {!loading && error && <p style={{ color: 'red' }}>{error}</p>}
+        {!loading && !error && (
+          <>
+            <div className='info'>
+              <div className='money'>
+                <div id="USD">
+                  Доллар США $ — {rates.USDrate} руб.
+                </div>
+                <div id="EUR">
+                  Евро € — {rates.EURrate} руб.
+                </div>
+              </div>
+              <div className='money'>
+                <div>₿ Bitcoin — {crypto.BTC?.toLocaleString()} ₽</div>
+                <div>Ξ Ethereum — {crypto.ETH?.toLocaleString()} ₽</div>
+              </div>
+              {weatherData && (
+                <div className="weather-info">
+                  <p>Погода сегодня: <br />
+                    🌡️ {(weatherData.main.temp - 273.15).toFixed(1)}°C {' '}
+                    ༄.° {weatherData.wind.speed} м/с {' '}
+                    ☁️ {weatherData.clouds.all}%</p>
+                  <img
+                    className='weather-icon'
+                    src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`}
+                    alt="Иконка погоды"
+                  />
+                </div>
+              )}
             </div>
-          )}
-        </div>
-        <div className="api-divider" />
-        <div className="api-block">
-          <div className="api-block-label">Погода</div>
-          <select className="api-select" value={cityIndex} onChange={e => setCityIndex(Number(e.target.value))}>
-            {CITIES.map((c, i) => <option key={i} value={i}>{c.name}</option>)}
-          </select>
-          {loading && <span className="api-loading">загрузка…</span>}
-          {!loading && error && <span className="api-error">недоступно</span>}
-          {!loading && !error && weather && (
-            <div className="api-values">
-              <span>🌡 {toCelsius(weather.main.temp)}°C</span>
-              <span>💨 {weather.wind.speed} м/с</span>
-              <span>☁️ {weather.clouds.all}%</span>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* 2. задачи */}
-      <div className="todo-section">
-        <h1 className="todo-title">
-          Задачи
-          <span className="todo-count">{todos.length}</span>
-        </h1>
+          </>
+        )}
+        <header>
+          <h1 className='list-header'>Список задач: {todos.length}</h1>
+        </header>
         <ToDoForm addTask={addTask} />
-        <div className="todo-list">
-          {todos.length === 0 && <p className="todo-empty">Нет задач. Добавь первую.</p>}
-          {todos.map(todo => (
-            <ToDo key={todo.id} todo={todo} toggleTask={toggleTask} removeTask={removeTask} />
-          ))}
-        </div>
+        {todos.map((todo) => {
+          return (
+            <ToDo
+              todo={todo}
+              key={todo.id}
+              toggleTask={handleToggle}
+              removeTask={removeTask}
+            />
+          );
+        })}
       </div>
-
-      <div className="world-time-section">
-  <WorldTime timezones={['NewYork', 'Moscow', 'Tokyo']} />
-</div>
-
-      {/* 3. wordle — фиксирован в правом нижнем углу экрана */}
-      <Wordle />
-    </div>
+      <ApiDocs />
+    </>
   );
 }
 
 export default App;
-
