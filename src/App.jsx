@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import ToDoForm from "./AddTask";
 import ToDo from "./Task";
+import WorldTime from './WorldTime';
 import axios from 'axios';
 import ApiDocs from "./ApiDocs";
 
