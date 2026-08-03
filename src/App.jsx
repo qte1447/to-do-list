@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import ToDoForm from './AddTask';
 import ToDo from './Task';
-import Wordle from './Wordle';
 import axios from 'axios';
+import WorldTime from './WorldTime'; // <-- Import world clock
+import Wordle from './Wordle'; // <-- If you don't have this, see note below
 
 const TASKS_KEY = 'todo-tasks';
 const WEATHER_KEY = 'c7616da4b68205c2f3ae73df2c31d177';
@@ -31,20 +32,25 @@ function App() {
   const [currencyId, setCurrencyId] = useState('era');
   const [todos, setTodos] = useState([]);
 
+  // Load todos from localStorage on mount
   useEffect(() => {
     const saved = localStorage.getItem(TASKS_KEY);
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) setTodos(parsed);
-      } catch { console.error('ошибка чтения задач'); }
+      } catch (e) {
+        // Silently ignore invalid data
+      }
     }
   }, []);
 
+  // Save todos to localStorage on change
   useEffect(() => {
     localStorage.setItem(TASKS_KEY, JSON.stringify(todos));
   }, [todos]);
 
+  // Fetch exchange rates and weather on dependency change
   useEffect(() => {
     setLoading(true);
     setError('');
@@ -78,6 +84,7 @@ function App() {
     fetchData();
   }, [cityIndex, currencyId]);
 
+  // Task handlers
   const addTask    = (text) => {
     if (!text.trim()) return;
     setTodos([...todos, { id: Math.random().toString(36).substr(2, 9), task: text, complete: false }]);
@@ -88,6 +95,7 @@ function App() {
   ));
   const toCelsius  = (k) => (k - 273.15).toFixed(1);
 
+  // RENDER
   return (
     <div className="app">
 
@@ -107,7 +115,7 @@ function App() {
             </div>
           )}
         </div>
-        <div className="api-divider" />
+        <div className="api-divider" style={{marginBottom: 16}} />
         <div className="api-block">
           <div className="api-block-label">Погода</div>
           <select className="api-select" value={cityIndex} onChange={e => setCityIndex(Number(e.target.value))}>
@@ -140,12 +148,37 @@ function App() {
         </div>
       </div>
 
-      {/* 3. wordle — фиксирован в правом нижнем углу экрана */}
-      <Wordle />
+      {/* 4. 🌍 Время в разных городах */}
+      <div style={{
+        margin: '48px auto 32px auto',
+        maxWidth: 520,
+        marginBottom: 32,
+        background: '#f8f9fa',
+        borderRadius: 12,
+        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+        padding: 24
+      }}>
+        <h3>Текущее время по городам 🌎</h3>
+        <WorldTime />
+      </div>
+
+      {/* 3. Wordle — фиксирован в правом нижнем углу экрана */}
+      <div style={{
+        position: 'absolute',
+        bottom: 24,
+        right: 24,
+        zIndex: 10,
+        background: '#eef1f5',
+        padding: '16px 24px',
+        borderRadius: '12px',
+        boxShadow: '0 2px 10px rgba(0,0,0,0.08)'
+      }}>
+        <Wordle />
+      </div>
+
     </div>
   );
 }
-
 export default App;
 
 
