@@ -1,14 +1,13 @@
-/* cyberpunk-2077-inspired App.css */
+/* cyberpunk-2077-inspired App.css with Glitch effects */
 
 :root {
-  --dark-blue: #0a153c;
-  --dark-purple: #2c2c8e;
-  --accent-cyan: #4fc3f7;
-  --accent-pink: #e07d80;
-  --accent-yellow: #ffd700;
-  --glass: rgba(20,20,30,0.45);
-  --gray-metal: #2e2e2e;
-  --white-glow: rgba(255,255,255,0.08);
+  --cp-yellow: #fcee0a;
+  --cp-black: #000000;
+  --cp-dark-blue: #030813;
+  --cp-cyan: #00f0ff;
+  --cp-magenta: #ff0055;
+  --cp-gray: #1a1a1a;
+  --cp-border-red: #ff003c;
   --off-white: #f5f5f5;
 }
 
@@ -17,9 +16,11 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: #0a153c;
-  color: #e0e0e0;
-  font-family: 'JetBrains Mono', 'Fira Mono', 'Consolas', 'Ubuntu Mono', monospace;
+  background: var(--cp-dark-blue);
+  color: var(--off-white);
+  font-family: 'JetBrains Mono', 'Fira Mono', 'Consolas', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 #root {
@@ -34,165 +35,203 @@ html, body {
 .App {
   position: relative;
   z-index: 2;
-  box-shadow: 0 4px 24px 0 rgba(0,60,60,0.08), 0 1px 4px 0 rgba(236,125,128,0.08);
-  border-radius: 18px;
-  backdrop-filter: none; /* No blur */
+  border-left: 4px solid var(--cp-cyan);
+  background: rgba(3, 8, 19, 0.85);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
 }
 
-/* Info panel - glassy, subtle */
+/* Info panel - High-tech dashboard with neon pulsing */
 .info {
   display: flex;
   justify-content: center;
   gap: 24px;
   padding: 24px 18px;
-  background: var(--glass);
-  border-radius: 14px;
-  border: 2px solid var(--dark-purple);
-  box-shadow: 0 2px 12px 0 rgba(0,60,60,0.07);
-  filter: none;
+  background: var(--cp-black);
+  border: 1px solid var(--cp-border-red);
+  clip-path: polygon(0 0, 95% 0, 100% 25%, 100% 100%, 5% 100%, 0 75%);
+  animation: cp-pulse 4s infinite alternate;
+}
+
+@keyframes cp-pulse {
+  0% { box-shadow: 0 0 4px rgba(255, 0, 60, 0.2); }
+  100% { box-shadow: 0 0 15px rgba(255, 0, 60, 0.5); }
 }
 
 .money, .weather-info, .list-header {
-  background: var(--glass);
-  border: 2px solid var(--dark-purple);
-  border-radius: 10px;
-  box-shadow: 0 2px 8px 0 rgba(0,60,60,0.06);
-  color: var(--accent-cyan);
-  font-size: 16px;
+  background: rgba(26, 26, 26, 0.9);
+  border: 1px solid var(--cp-cyan);
+  color: var(--cp-yellow);
+  font-size: 14px;
+  font-weight: bold;
   padding: 12px 18px;
-  transition: color 0.2s, box-shadow 0.2s;
+  position: relative;
+  transition: all 0.15s ease-in-out;
 }
 
 .money:hover, .weather-info:hover, .list-header:hover {
-  color: var(--accent-pink);
-  box-shadow: 0 4px 16px 0 rgba(236,125,128,0.12);
+  color: var(--cp-black);
+  background: var(--cp-yellow);
+  border-color: var(--cp-black);
+  box-shadow: 0 0 10px var(--cp-yellow);
 }
 
 .weather-icon {
-  color: var(--accent-yellow);
+  color: var(--cp-cyan);
 }
 
-/* Todo items - subtle holographic */
+/* Todo items - Cybernetic slots */
 .item-todo {
-  background: rgba(30,30,50,0.18);
-  color: var(--white-glow);
-  border: 2px solid rgba(60,100,180,0.25);
-  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: var(--off-white);
+  border: 1px solid #333;
+  border-left: 4px solid var(--cp-yellow);
   padding: 12px 16px;
-  box-shadow: 0 2px 8px 0 rgba(0,60,60,0.06);
   max-width: 60%;
   margin: 12px auto;
-  font-size: 15px;
-  transition: box-shadow 0.2s, color 0.2s;
+  font-size: 14px;
+  transition: all 0.2s;
 }
 
 .item-todo:hover {
-  box-shadow: 0 4px 16px 0 rgba(60,100,180,0.18);
-  color: var(--accent-pink);
+  border-left-color: var(--cp-cyan);
+  background: rgba(0, 240, 255, 0.05);
+  box-shadow: -5px 0 0 var(--cp-cyan);
 }
 
 .item-todo .item-text {
-  text-shadow: 0 1px 2px #2c2c8e33;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
 }
 
 .item-todo .item-delete {
-  color: var(--accent-pink);
-  text-shadow: 0 1px 2px #2c2c8e33;
+  color: var(--cp-border-red);
+  font-weight: bold;
   transition: color 0.2s;
 }
 
 .item-todo:hover .item-delete {
-  color: var(--accent-yellow);
+  color: var(--cp-cyan);
+  text-shadow: 0 0 5px var(--cp-cyan);
 }
 
-/* Form inputs - tech panel style */
+/* Form inputs - Corporate terminal style */
 form {
   display: flex;
   justify-content: center;
   margin: 24px 0;
-  background: rgba(30,30,50,0.60);
-  border-radius: 10px;
+  background: var(--cp-black);
+  border-bottom: 2px solid var(--cp-yellow);
   padding: 16px 20px;
-  box-shadow: 0 2px 8px 0 rgba(0,60,60,0.07);
 }
 
 input {
   padding: 12px 16px;
-  border-radius: 4px 0 0 4px;
-  border: 2px solid var(--accent-cyan);
+  border: 1px solid var(--cp-gray);
+  border-bottom: 2px solid var(--cp-cyan);
   outline: none;
-  background: rgba(40,40,70,0.85);
-  color: var(--off-white);
-  font-size: 15px;
+  background: #0d1117;
+  color: var(--cp-cyan);
+  font-size: 14px;
   width: 300px;
-  transition: border-color 0.2s;
+  font-family: inherit;
 }
 
 input:focus {
-  border-color: var(--accent-pink);
-  box-shadow: 0 0 0 2px rgba(236,125,128,0.10);
+  border-bottom-color: var(--cp-magenta);
+  color: var(--cp-magenta);
+  background: #161b22;
 }
 
+/* Button with full GLITCH effect on hover */
 button {
-  padding: 13px 18px;
-  border-radius: 0 6px 6px 0;
+  position: relative;
+  padding: 13px 24px;
   cursor: pointer;
-  background: linear-gradient(90deg, rgba(30,30,50,0.25), rgba(60,100,180,0.25));
-  color: var(--off-white);
-  text-transform: capitalize;
-  font-size: 15px;
-  font-weight: 500;
-  border: 2px solid var(--accent-cyan);
-  box-shadow: 0 2px 8px 0 rgba(0,60,60,0.06);
-  transition: background 0.2s, color 0.2s;
+  background: var(--cp-yellow);
+  color: var(--cp-black);
+  font-size: 14px;
+  font-weight: 900;
+  border: none;
+  clip-path: polygon(0 0, 85% 0, 100% 40%, 100% 100%, 15% 100%, 0 60%);
+  transition: all 0.15s ease;
 }
 
 button:hover {
-  background: linear-gradient(90deg, rgba(60,100,180,0.25), rgba(30,30,50,0.25));
-  color: var(--accent-pink);
-  border-color: var(--accent-pink);
+  background: var(--cp-cyan);
+  color: var(--cp-black);
+  box-shadow: 0 0 15px var(--cp-cyan);
 }
 
-/* Docs button - subtle, floating */
+/* Глитч-эффект через псевдоэлементы */
+button::after {
+  content: 'ADD_'; /* или любой текст вашей кнопки по умолчанию */
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--cp-magenta);
+  text-shadow: -1px 0 var(--cp-cyan);
+  clip-path: polygon(0 0, 85% 0, 100% 40%, 100% 100%, 15% 100%, 0 60%);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:hover::after {
+  animation: cp-glitch 0.4s steps(2, start) infinite;
+  opacity: 1;
+}
+
+@keyframes cp-glitch {
+  0% { clip-path: inset(40% 0 61% 0); transform: skew(-5deg); }
+  20% { clip-path: inset(92% 0 1% 0); transform: skew(3deg); }
+  40% { clip-path: inset(15% 0 80% 0); transform: skew(-3deg); }
+  60% { clip-path: inset(80% 0 5% 0); transform: skew(5deg); }
+  80% { clip-path: inset(3% 0 92% 0); transform: skew(-1deg); }
+  100% { clip-path: inset(40% 0 43% 0); transform: skew(0deg); }
+}
+
+/* Docs button - Holographic trigger */
 .docs-button {
   position: fixed;
   bottom: 22px;
   right: 22px;
   padding: 10px 16px;
-  background: rgba(30,30,50,0.45);
-  color: var(--accent-cyan);
-  border: 1.5px solid var(--accent-pink);
-  border-radius: 6px;
+  background: transparent;
+  color: var(--cp-cyan);
+  border: 1px solid var(--cp-cyan);
   cursor: pointer;
-  font-size: 13px;
-  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-family: inherit;
   z-index: 100;
-  box-shadow: 0 2px 8px 0 rgba(0,60,60,0.04);
   transition: all 0.2s;
 }
 
 .docs-button:hover {
-  background: rgba(40,40,70,0.60);
-  color: var(--accent-pink);
-  border-color: var(--accent-pink);
+  background: var(--cp-cyan);
+  color: var(--cp-black);
+  box-shadow: 0 0 10px var(--cp-cyan);
+  animation: cp-glitch-text 0.3s infinite;
 }
 
-/* Modal overlay - glassy, dark */
+@keyframes cp-glitch-text {
+  0% { text-shadow: 1px 1px var(--cp-magenta), -1px -1px var(--cp-cyan); }
+  50% { text-shadow: -1px 1px var(--cp-magenta), 1px -1px var(--cp-cyan); }
+  100% { text-shadow: 1px -1px var(--cp-magenta), -1px 1px var(--cp-cyan); }
+}
+
+/* Modal overlay - Netrunner breach screen */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
-  background: rgba(10,10,25,0.80);
+  background: rgba(3, 8, 19, 0.95);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  filter: none;
 }
 
 .modal-content {
-  background: var(--glass);
-  border: 2px solid var(--dark-purple);
-  border-radius: 14px;
+  background: var(--cp-black);
+  border: 2px solid var(--cp-border-red);
   padding: 32px;
   max-width: 610px;
   width: 90%;
@@ -200,12 +239,7 @@ button:hover {
   overflow-y: auto;
   position: relative;
   color: var(--off-white);
-  box-shadow: 0 4px 16px 0 rgba(0,60,60,0.08);
-  transition: box-shadow 0.2s;
-}
-
-.modal-content:hover {
-  box-shadow: 0 6px 24px 0 rgba(0,60,60,0.12);
+  clip-path: polygon(0 0, 97% 0, 100% 4%, 100% 100%, 3% 100%, 0 96%);
 }
 
 .modal-close {
@@ -216,97 +250,34 @@ button:hover {
   border: none;
   font-size: 22px;
   cursor: pointer;
-  color: var(--accent-pink);
-  transition: color 0.2s;
+  color: var(--cp-border-red);
 }
 
 .modal-close:hover {
-  color: var(--accent-yellow);
+  color: var(--cp-yellow);
+  text-shadow: 0 0 8px var(--cp-yellow);
 }
 
 .modal-header {
   text-align: center;
   margin-bottom: 20px;
-  color: var(--accent-cyan);
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  color: var(--cp-yellow);
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .modal-content h2, .modal-content h3, .modal-content h4 {
-  color: var(--accent-cyan);
-}
-
-.modal-content h2 {
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.modal-content h3 {
-  margin-top: 8px;
-  font-size: 15px;
-  font-weight: 500;
-}
-
-.modal-content h4 {
-  margin-top: 6px;
-  color: var(--accent-pink);
-  font-size: 13px;
-  font-weight: 400;
-}
-
-.modal-content p {
-  margin: 6px 0;
-  color: var(--off-white);
-  line-height: 1.5;
+  color: var(--cp-cyan);
 }
 
 .modal-content code {
-  background: var(--glass);
-  color: var(--accent-cyan);
+  background: var(--cp-gray);
+  color: var(--cp-magenta);
   padding: 2px 8px;
-  border-radius: 4px;
-  border: 1px solid #2c2c8e44;
   font-size: 13px;
-  font-family: 'JetBrains Mono', monospace;
 }
 
-.modal-content ul {
-  padding-left: 18px;
-}
-
-.modal-content li {
-  color: var(--off-white);
-  margin: 3px 0;
-}
-
-.modal-content a {
-  color: var(--accent-cyan);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.modal-content a:hover {
-  color: var(--accent-pink);
-  text-decoration: underline;
-}
-
-.modal-footer {
-  margin-top: 18px;
-  text-align: center;
-  color: var(--gray-metal);
-  font-size: 13px;
-  letter-spacing: 0.5px;
-  border-top: 1px solid rgba(0,60,60,0.10);
-  padding-top: 10px;
-  transition: color 0.2s;
-}
-
-.modal-footer:hover {
-  color: var(--accent-cyan);
-}
-
-/* Tabs - subtle, muted */
+/* Tabs - Matrix selection */
 .tabs {
   display: flex;
   gap: 10px;
@@ -317,37 +288,30 @@ button:hover {
 
 .tab {
   padding: 8px 14px;
-  border: 2px solid var(--dark-purple);
-  background: var(--glass);
-  color: var(--accent-cyan);
-  border-radius: 6px;
+  border: 1px solid var(--cp-gray);
+  background: rgba(0, 0, 0, 0.6);
+  color: #888;
   cursor: pointer;
-  font-size: 13px;
-  font-family: 'JetBrains Mono', monospace;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  font-size: 12px;
+  transition: all 0.15s;
 }
 
 .tab.active {
-  background: rgba(30,30,50,0.25);
-  border-color: var(--accent-cyan);
-  color: var(--accent-pink);
-  font-weight: 600;
+  background: transparent;
+  border: 1px solid var(--cp-yellow);
+  color: var(--cp-yellow);
+  box-shadow: inset 0 0 5px rgba(252, 238, 10, 0.2);
 }
 
 .tab:hover {
-  background: rgba(40,40,70,0.35);
-  color: var(--accent-pink);
-  border-color: var(--accent-pink);
+  color: var(--cp-cyan);
+  border-color: var(--cp-cyan);
 }
 
 @media (max-width: 700px) {
   .info, .modal-content {
     padding: 14px 8px;
-    font-size: 13px;
-  }
-  .tabs {
-    flex-direction: column;
-    gap: 6px;
+    font-size: 12px;
   }
 }
 
