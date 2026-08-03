@@ -42,7 +42,7 @@ html, body {
   position: relative;
   z-index: 2;
   border-left: 4px solid var(--cp-cyan);
-  background: rgba(3, 8, 19, 0.85);
+  background: transparent;
 }
 
 /* Info panel - High-tech dashboard */
