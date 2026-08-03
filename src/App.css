@@ -351,10 +351,6 @@ button:hover::after {
   0% { clip-path: inset(40% 0 61% 0); transform: skew(-5deg); }
   20% { clip-path: inset(92% 0 1% 0); transform: skew(3deg); }
   40% { clip-path: inset(15% 0 80% 0); transform: skew(-3deg); }
-/* ==========================================================================
-   CYBERPUNK 2077 INSPIRED APP.CSS (PART 2: COMPLETE PLACARD ANIMATION)
-   ========================================================================== */
-
 60% { clip-path: inset(80% 0 5% 0); transform: skew(5deg); }
   80% { clip-path: inset(3% 0 92% 0); transform: skew(-1deg); }
   100% { clip-path: inset(40% 0 43% 0); transform: skew(0deg); }
@@ -389,3 +385,4 @@ button:hover::after {
   90% { content: "KANG TAO: $285.50 ▼1.9%"; color: var(--cp-border-red); }
   95% { content: "PETROCHEM: $213.40 ▲2.0%"; color: var(--cp-stock-green); }
 }
+
