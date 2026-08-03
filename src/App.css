@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CYBERPUNK 2077 INSPIRED APP.CSS (COMPLETE FILE)
+   CYBERPUNK 2077 INSPIRED APP.CSS (PART 1: BASE INTERFACE & PLACARDS)
    ========================================================================== */
 
 :root {
@@ -15,6 +15,7 @@
   --text-white: #ffffff;
   --text-muted-glitch: #aaaaaa; 
   --link-color: #d4af37; 
+  --cp-stock-green: #22cc66; /* Мягкий неоново-зеленый для роста */
 }
 
 html, body {
@@ -45,10 +46,10 @@ html, body {
   background: rgba(3, 8, 19, 0.85);
 }
 
-/* Info panel - High-tech dashboard */
+/* Info panel - Выстраивает все плашки горизонтально в один ряд */
 .info {
   display: flex;
-  flex-direction: column; /* Позволяет строке акций встать четко под плашками */
+  justify-content: center;
   align-items: center;
   gap: 24px;
   padding: 24px 18px;
@@ -57,14 +58,42 @@ html, body {
   clip-path: polygon(0 0, 95% 0, 100% 25%, 100% 100%, 5% 100%, 0 75%);
 }
 
-/* Контейнер для плашек внутри панели, чтобы они оставались в ряд */
-.info-row {
+/* НОВАЯ ПЛАШКА АКЦИЙ: Полная копия ваших плашек по шрифту, рамкам и размерам */
+.stock-placard {
+  order: -1; /* Автоматически ставит плашку ПЕРВОЙ слева в ряду */
+  background: rgba(26, 26, 26, 0.9);
+  border: 1px solid var(--cp-cyan);
+  font-size: 14px;
+  font-weight: bold;
+  padding: 12px 18px;
+  min-width: 210px;
+  height: 18px; /* Фиксированная высота для строго одной строки текста */
+  overflow: hidden;
+  position: relative;
+  transition: all 0.2s ease-in-out;
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 24px;
-  width: 100%;
 }
 
+.stock-placard:hover {
+  background: #111111;
+  border-color: var(--cp-muted-yellow);
+  box-shadow: 0 0 6px rgba(191, 174, 8, 0.25);
+}
+
+/* Псевдоэлемент генерирует пошаговый текст и динамически меняет цвета */
+.stock-placard::after {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; /* Увеличенный крупный шрифт, как у остальных плашек */
+  font-weight: bold;
+  white-space: nowrap;
+  line-height: 18px;
+  animation: cp-stock-market-placard-update 120s steps(1) infinite;
+}
+
+/* Ваши оригинальные три плашки в центре */
 .money, .weather-info, .list-header {
   background: rgba(26, 26, 26, 0.9);
   border: 1px solid var(--cp-cyan);
@@ -85,35 +114,6 @@ html, body {
 
 .weather-icon {
   color: var(--cp-cyan);
-}
-
-/* ==========================================================================
-   PURE CSS STOCK TICKER (Встроен в панель info)
-   ========================================================================== */
-.info::after {
-  display: block;
-  width: 100%;
-  max-width: 90%;
-  background: rgba(13, 17, 23, 0.9);
-  border-top: 1px solid rgba(0, 240, 255, 0.15);
-  border-bottom: 1px solid rgba(0, 240, 255, 0.15);
-  padding: 8px 0;
-  margin-top: 12px;
-  
-  /* Шрифты и выравнивание */
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  text-align: center;
-  color: #cccccc;
-  
-  /* Эффект сетки терминала */
-  background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%);
-  background-size: 100% 2px;
-  
-  /* Подключаем цикличную смену заготовленных цен корпораций */
-  content: "ARASAKA [ARSARK]: $420.69 (+1.2%)  |  MILITECH [MILTCH]: $315.45 (-0.8%)  |  BIOTECHNICA [BIOTCH]: $184.20 (+2.1%)  |  KANG TAO [KNGTAO]: $290.15 (-1.4%)  |  PETROCHEM [PTRCHM]: $210.50 (+0.5%)  |  MALORIAN [MALRNC]: $875.00 (0.0%)";
-  animation: cp-stock-market-update 120s steps(1) infinite;
 }
 
 /* Todo items - Cybernetic slots */
@@ -234,7 +234,7 @@ button:hover::after {
   border-color: #666;
 }
 
-/* Modal overlay - Netrunner breach screen */
+/* Modal overlay */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
@@ -339,7 +339,6 @@ button:hover::after {
   border-color: #555;
 }
 
-/* Media query */
 @media (max-width: 700px) {
   .info, .modal-content {
     padding: 14px 8px;
@@ -347,78 +346,47 @@ button:hover::after {
   }
 }
 
-/* ==========================================================================
-   ANIMATION KEYFRAMES (GLITCH AND STOCK CORPS)
-   ========================================================================== */
-
+/* Текстовые глитч-эффекты */
 @keyframes cp-glitch {
   0% { clip-path: inset(40% 0 61% 0); transform: skew(-5deg); }
   20% { clip-path: inset(92% 0 1% 0); transform: skew(3deg); }
   40% { clip-path: inset(15% 0 80% 0); transform: skew(-3deg); }
-  60% { clip-path: inset(80% 0 5% 0); transform: skew(5deg); }
+/* ==========================================================================
+   CYBERPUNK 2077 INSPIRED APP.CSS (PART 2: COMPLETE PLACARD ANIMATION)
+   ========================================================================== */
+
+60% { clip-path: inset(80% 0 5% 0); transform: skew(5deg); }
   80% { clip-path: inset(3% 0 92% 0); transform: skew(-1deg); }
   100% { clip-path: inset(40% 0 43% 0); transform: skew(0deg); }
 }
 
-@keyframes cp-stock-market-update {
-  0%, 100% {
-    content: "ARASAKA [ARSARK]: $420.69 (+1.2%)  |  MILITECH [MILTCH]: $315.45 (-0.8%)  |  BIOTECHNICA [BIOTCH]: $184.20 (+2.1%)  |  KANG TAO [KNGTAO]: $290.15 (-1.4%)  |  PETROCHEM [PTRCHM]: $210.50 (+0.5%)  |  MALORIAN [MALRNC]: $875.00 (0.0%)";
-  }
-  5% {
-    content: "ARASAKA [ARSARK]: $421.15 (+0.4%)  |  MILITECH [MILTCH]: $312.10 (-1.4%)  |  BIOTECHNICA [BIOTCH]: $186.50 (+1.2%)  |  KANG TAO [KNGTAO]: $288.40 (-0.6%)  |  PETROCHEM [PTRCHM]: $211.20 (+0.3%)  |  MALORIAN [MALRNC]: $876.20 (+0.1%)";
-  }
-  10% {
-    content: "ARASAKA [ARSARK]: $423.80 (+1.8%)  |  MILITECH [MILTCH]: $314.00 (+0.6%)  |  BIOTECHNICA [BIOTCH]: $183.10 (-0.7%)  |  KANG TAO [KNGTAO]: $291.00 (+0.9%)  |  PETROCHEM [PTRCHM]: $209.15 (-0.9%)  |  MALORIAN [MALRNC]: $874.50 (-0.0%)";
-  }
-  15% {
-    content: "ARASAKA [ARSARK]: $419.40 (-0.3%)  |  MILITECH [MILTCH]: $309.85 (-2.1%)  |  BIOTECHNICA [BIOTCH]: $189.40 (+3.4%)  |  KANG TAO [KNGTAO]: $285.50 (-1.9%)  |  PETROCHEM [PTRCHM]: $213.40 (+2.0%)  |  MALORIAN [MALRNC]: $871.00 (-0.4%)";
-  }
-  20% {
-    content: "ARASAKA [ARSARK]: $422.05 (+1.1%)  |  MILITECH [MILTCH]: $311.20 (+0.2%)  |  BIOTECHNICA [BIOTCH]: $187.15 (-0.5%)  |  KANG TAO [KNGTAO]: $289.90 (+1.5%)  |  PETROCHEM [PTRCHM]: $212.00 (-0.6%)  |  MALORIAN [MALRNC]: $875.00 (0.0%)";
-  }
-  25% {
-    content: "ARASAKA [ARSARK]: $425.10 (+0.7%)  |  MILITECH [MILTCH]: $308.00 (-1.0%)  |  BIOTECHNICA [BIOTCH]: $190.00 (+1.5%)  |  KANG TAO [KNGTAO]: $287.20 (-0.9%)  |  PETROCHEM [PTRCHM]: $214.10 (+1.0%)  |  MALORIAN [MALRNC]: $879.30 (+0.4%)";
-  }
-  30% {
-    content: "ARASAKA [ARSARK]: $423.00 (-0.5%)  |  MILITECH [MILTCH]: $310.45 (+0.8%)  |  BIOTECHNICA [BIOTCH]: $188.50 (-0.8%)  |  KANG TAO [KNGTAO]: $290.00 (+1.0%)  |  PETROCHEM [PTRCHM]: $211.50 (-1.2%)  |  MALORIAN [MALRNC]: $873.00 (-0.2%)";
-  }
-  35% {
-    content: "ARASAKA [ARSARK]: $418.90 (-1.0%)  |  MILITECH [MILTCH]: $313.20 (+0.9%)  |  BIOTECHNICA [BIOTCH]: $192.40 (+2.0%)  |  KANG TAO [KNGTAO]: $292.15 (+0.7%)  |  PETROCHEM [PTRCHM]: $208.00 (-1.6%)  |  MALORIAN [MALRNC]: $869.50 (-0.6%)";
-  }
-  40% {
-    content: "ARASAKA [ARSARK]: $421.50 (+0.6%)  |  MILITECH [MILTCH]: $311.00 (-0.7%)  |  BIOTECHNICA [BIOTCH]: $189.90 (-1.3%)  |  KANG TAO [KNGTAO]: $289.50 (-0.9%)  |  PETROCHEM [PTRCHM]: $210.20 (+1.1%)  |  MALORIAN [MALRNC]: $874.00 (0.0%)";
-  }
-  45% {
-    content: "ARASAKA [ARSARK]: $424.30 (+0.7%)  |  MILITECH [MILTCH]: $307.50 (-1.1%)  |  BIOTECHNICA [BIOTCH]: $193.10 (+1.7%)  |  KANG TAO [KNGTAO]: $286.00 (-1.2%)  |  PETROCHEM [PTRCHM]: $213.00 (+1.3%)  |  MALORIAN [MALRNC]: $878.00 (+0.3%)";
-  }
-  50% {
-    content: "ARASAKA [ARSARK]: $422.10 (-0.5%)  |  MILITECH [MILTCH]: $309.20 (+0.5%)  |  BIOTECHNICA [BIOTCH]: $191.00 (-1.1%)  |  KANG TAO [KNGTAO]: $288.30 (+0.8%)  |  PETROCHEM [PTRCHM]: $211.80 (-0.6%)  |  MALORIAN [MALRNC]: $875.00 (0.0%)";
-  }
-  55% {
-    content: "ARASAKA [ARSARK]: $426.00 (+0.9%)  |  MILITECH [MILTCH]: $305.10 (-1.3%)  |  BIOTECHNICA [BIOTCH]: $194.50 (+1.8%)  |  KANG TAO [KNGTAO]: $284.10 (-1.5%)  |  PETROCHEM [PTRCHM]: $215.00 (+1.5%)  |  MALORIAN [MALRNC]: $882.40 (+0.8%)";
-  }
-  60% {
-    content: "ARASAKA [ARSARK]: $423.50 (-0.6%)  |  MILITECH [MILTCH]: $307.80 (+0.9%)  |  BIOTECHNICA [BIOTCH]: $192.00 (-1.3%)  |  KANG TAO [KNGTAO]: $286.70 (+0.9%)  |  PETROCHEM [PTRCHM]: $212.40 (-1.2%)  |  MALORIAN [MALRNC]: $876.00 (-0.7%)";
-  }
-  65% {
-    content: "ARASAKA [ARSARK]: $419.80 (-0.9%)  |  MILITECH [MILTCH]: $310.50 (+0.9%)  |  BIOTECHNICA [BIOTCH]: $195.30 (+1.7%)  |  KANG TAO [KNGTAO]: $289.40 (+0.9%)  |  PETROCHEM [PTRCHM]: $209.50 (-1.4%)  |  MALORIAN [MALRNC]: $870.10 (-0.6%)";
-  }
-  70% {
-    content: "ARASAKA [ARSARK]: $422.40 (+0.6%)  |  MILITECH [MILTCH]: $308.10 (-0.8%)  |  BIOTECHNICA [BIOTCH]: $193.00 (-1.2%)  |  KANG TAO [KNGTAO]: $287.00 (-0.8%)  |  PETROCHEM [PTRCHM]: $211.90 (+1.1%)  |  MALORIAN [MALRNC]: $875.00 (0.0%)";
-  }
-  75% {
-    content: "ARASAKA [ARSARK]: $425.90 (+0.8%)  |  MILITECH [MILTCH]: $304.90 (-1.0%)  |  BIOTECHNICA [BIOTCH]: $196.20 (+1.6%)  |  KANG TAO [KNGTAO]: $283.80 (-1.1%)  |  PETROCHEM [PTRCHM]: $214.50 (+1.2%)  |  MALORIAN [MALRNC]: $881.00 (+0.6%)";
-  }
-  80% {
-    content: "ARASAKA [ARSARK]: $423.10 (-0.7%)  |  MILITECH [MILTCH]: $307.20 (+0.8%)  |  BIOTECHNICA [BIOTCH]: $194.00 (-1.1%)  |  KANG TAO [KNGTAO]: $285.90 (+0.7%)  |  PETROCHEM [PTRCHM]: $212.10 (-1.1%)  |  MALORIAN [MALRNC]: $876.50 (-0.5%)";
-  }
-  85% {
-    content: "ARASAKA [ARSARK]: $418.50 (-1.1%)  |  MILITECH [MILTCH]: $311.00 (+1.2%)  |  BIOTECHNICA [BIOTCH]: $197.80 (+1.9%)  |  KANG TAO [KNGTAO]: $288.50 (+0.9%)  |  PETROCHEM [PTRCHM]: $207.90 (-2.0%)  |  MALORIAN [MALRNC]: $868.00 (-1.0%)";
-  }
-  90% {
-    content: "ARASAKA [ARSARK]: $421.20 (+0.6%)  |  MILITECH [MILTCH]: $309.00 (-0.6%)  |  BIOTECHNICA [BIOTCH]: $195.10 (-1.4%)  |  KANG TAO [KNGTAO]: $286.20 (-0.8%)  |  PETROCHEM [PTRCHM]: $210.00 (+1.0%)  |  MALORIAN [MALRNC]: $874.00 (0.0%)";
-  }
-  95% {
-    content: "ARASAKA [ARSARK]: $424.00 (+0.7%)  |  MILITECH [MILTCH]: $306.00 (-1.0%)  |  BIOTECHNICA [BIOTCH]: $198.50 (+1.7%)  |  KANG TAO [KNGTAO]: $283.00 (-1.1%)  |  PETROCHEM [PTRCHM]: $213.20 (+1.5%)  |  MALORIAN [MALRNC]: $879.00 (+0.5%)";
-  }
+@keyframes cp-stock-market-placard-update {
+  /* Шаг 1-5 */
+  0%, 100% { content: "ARASAKA: $420.69 ▲1.2%"; color: var(--cp-stock-green); }
+  5% { content: "MILITECH: $315.45 ▼0.8%"; color: var(--cp-border-red); }
+  10% { content: "BIOTECHNICA: $184.20 ▲2.1%"; color: var(--cp-stock-green); }
+  15% { content: "KANG TAO: $290.15 ▼1.4%"; color: var(--cp-border-red); }
+  20% { content: "PETROCHEM: $210.50 ▲0.5%"; color: var(--cp-stock-green); }
+
+  /* Шаг 6-10 */
+  25% { content: "ARASAKA: $421.15 ▲0.4%"; color: var(--cp-stock-green); }
+  30% { content: "MILITECH: $312.10 ▼1.4%"; color: var(--cp-border-red); }
+  35% { content: "BIOTECHNICA: $186.50 ▲1.2%"; color: var(--cp-stock-green); }
+  40% { content: "KANG TAO: $288.40 ▼0.6%"; color: var(--cp-border-red); }
+  45% { content: "PETROCHEM: $211.20 ▲0.3%"; color: var(--cp-stock-green); }
+
+  /* Шаг 11-15 */
+  50% { content: "ARASAKA: $419.40 ▼0.3%"; color: var(--cp-border-red); }
+  55% { content: "MILITECH: $314.00 ▲0.6%"; color: var(--cp-stock-green); }
+  60% { content: "BIOTECHNICA: $183.10 ▼0.7%"; color: var(--cp-border-red); }
+  65% { content: "KANG TAO: $291.00 ▲0.9%"; color: var(--cp-stock-green); }
+  70% { content: "PETROCHEM: $209.15 ▼0.9%"; color: var(--cp-border-red); }
+
+  /* Шаг 16-20 */
+  75% { content: "ARASAKA: $422.05 ▲1.1%"; color: var(--cp-stock-green); }
+  80% { content: "MILITECH: $309.85 ▼2.1%"; color: var(--cp-border-red); }
+  85% { content: "BIOTECHNICA: $189.40 ▲3.4%"; color: var(--cp-stock-green); }
+  90% { content: "KANG TAO: $285.50 ▼1.9%"; color: var(--cp-border-red); }
+  95% { content: "PETROCHEM: $213.40 ▲2.0%"; color: var(--cp-stock-green); }
+}
 }
