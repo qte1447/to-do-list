@@ -1,14 +1,15 @@
-/* cyberpunk-2077-inspired App.css with Glitch effects */
+/* cyberpunk-2077-inspired App.css with softer Glitch effects */
 
 :root {
   --cp-yellow: #fcee0a;
   --cp-black: #000000;
   --cp-dark-blue: #030813;
   --cp-cyan: #00f0ff;
-  --cp-magenta: #ff0055;
+  --cp-glitch-blue: #0055ff; /* Более мягкий цвет для глитча вместо мадженты */
   --cp-gray: #1a1a1a;
   --cp-border-red: #ff003c;
   --off-white: #f5f5f5;
+  --text-white: #ffffff;
 }
 
 html, body {
@@ -129,15 +130,14 @@ input {
   border-bottom: 2px solid var(--cp-cyan);
   outline: none;
   background: #0d1117;
-  color: var(--cp-cyan);
+  color: var(--text-white); /* Цвет вводимого текста теперь белый */
   font-size: 14px;
   width: 300px;
   font-family: inherit;
 }
 
 input:focus {
-  border-bottom-color: var(--cp-magenta);
-  color: var(--cp-magenta);
+  border-bottom-color: var(--cp-yellow);
   background: #161b22;
 }
 
@@ -156,18 +156,18 @@ button {
 }
 
 button:hover {
-  background: var(--cp-cyan);
+  background: var(--cp-yellow);
   color: var(--cp-black);
-  box-shadow: 0 0 15px var(--cp-cyan);
+  box-shadow: 0 0 15px var(--cp-yellow);
 }
 
-/* Глитч-эффект через псевдоэлементы */
+/* Синий глитч-эффект через псевдоэлементы */
 button::after {
-  content: 'ADD_'; /* или любой текст вашей кнопки по умолчанию */
+  content: 'ADD_';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--cp-magenta);
-  text-shadow: -1px 0 var(--cp-cyan);
+  background: var(--cp-glitch-blue); /* Изменен на темно-синий */
+  color: var(--text-white);
   clip-path: polygon(0 0, 85% 0, 100% 40%, 100% 100%, 15% 100%, 0 60%);
   opacity: 0;
   display: flex;
@@ -189,15 +189,15 @@ button:hover::after {
   100% { clip-path: inset(40% 0 43% 0); transform: skew(0deg); }
 }
 
-/* Docs button - Holographic trigger */
+/* Docs button - Muted styling, no blinding cyan */
 .docs-button {
   position: fixed;
   bottom: 22px;
   right: 22px;
   padding: 10px 16px;
-  background: transparent;
-  color: var(--cp-cyan);
-  border: 1px solid var(--cp-cyan);
+  background: rgba(0, 0, 0, 0.7);
+  color: #a0a0a0; /* Спокойный серый по умолчанию */
+  border: 1px solid #444;
   cursor: pointer;
   font-size: 12px;
   font-family: inherit;
@@ -206,16 +206,10 @@ button:hover::after {
 }
 
 .docs-button:hover {
-  background: var(--cp-cyan);
-  color: var(--cp-black);
-  box-shadow: 0 0 10px var(--cp-cyan);
-  animation: cp-glitch-text 0.3s infinite;
-}
-
-@keyframes cp-glitch-text {
-  0% { text-shadow: 1px 1px var(--cp-magenta), -1px -1px var(--cp-cyan); }
-  50% { text-shadow: -1px 1px var(--cp-magenta), 1px -1px var(--cp-cyan); }
-  100% { text-shadow: 1px -1px var(--cp-magenta), -1px 1px var(--cp-cyan); }
+  background: var(--cp-gray);
+  color: var(--cp-yellow); /* Подсветка мягким желтым при наведении */
+  border-color: var(--cp-yellow);
+  box-shadow: 0 0 8px rgba(252, 238, 10, 0.3);
 }
 
 /* Modal overlay - Netrunner breach screen */
@@ -272,12 +266,12 @@ button:hover::after {
 
 .modal-content code {
   background: var(--cp-gray);
-  color: var(--cp-magenta);
+  color: var(--cp-yellow);
   padding: 2px 8px;
   font-size: 13px;
 }
 
-/* Tabs - Matrix selection */
+/* Tabs - Matrix selection with eye-friendly colors */
 .tabs {
   display: flex;
   gap: 10px;
@@ -304,8 +298,8 @@ button:hover::after {
 }
 
 .tab:hover {
-  color: var(--cp-cyan);
-  border-color: var(--cp-cyan);
+  color: var(--cp-yellow); /* Подсветка желтым вместо ядовито-бирюзового */
+  border-color: var(--cp-yellow);
 }
 
 @media (max-width: 700px) {
@@ -314,6 +308,5 @@ button:hover::after {
     font-size: 12px;
   }
 }
-
 
 
