@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import ToDoForm from "./AddTask";
 import ToDo from "./Task";
 import axios from 'axios';
 import ApiDocs from "./ApiDocs";
+import Clock from "./Clock"; // ← импорт часов
 
 const TASKS_STORAGE_KEY = 'tasks-list-project-web';
 
@@ -133,8 +134,16 @@ function App() {
     ]);
   };
 
+  // --- Вот здесь добавляем часы ---
+  // Они всегда отображаются в правом верхнем углу
+
   return (
     <>
+      {/* Часы в фиксированном положении */}
+      <div className="weather-clock">
+        <Clock />
+      </div>
+
       <div className="App">
         {loading && <p>Загрузка...</p>}
         {!loading && error && <p style={{ color: 'red' }}>{error}</p>}
@@ -169,20 +178,19 @@ function App() {
             </div>
           </>
         )}
+
         <header>
           <h1 className='list-header'>Список задач: {todos.length}</h1>
         </header>
         <ToDoForm addTask={addTask} />
-        {todos.map((todo) => {
-          return (
-            <ToDo
-              todo={todo}
-              key={todo.id}
-              toggleTask={handleToggle}
-              removeTask={removeTask}
-            />
-          );
-        })}
+        {todos.map((todo) => (
+          <ToDo
+            todo={todo}
+            key={todo.id}
+            toggleTask={handleToggle}
+            removeTask={removeTask}
+          />
+        ))}
       </div>
       <ApiDocs />
     </>
