@@ -49,7 +49,7 @@ html, body {
 
 /* БЕГУЩАЯ СТРОКА АКЦИЙ (БЕЗ ИЗМЕНЕНИЯ HTML) */
 .App::before {
-  content: "ARASAKA: $421.50 [▲ +4.2%]    MILITECH: $385.20 [▼ -2.4%]    PETROCHEM: $92.10 [▲ +0.9%]    BIOTECHNICA: $334.40 [▲ +9.4%]    KANG TAO: $312.00 [▼ -5.1%]        TRAUMA TEAM: $221.50 [▲ +4.2%]    KIROSHI: $115.20 [▼ -1.8%]    BUDGET ARMS: $84.50 [▲ +0.9%]    NiGHT CORP: $190.40 [▲ +12.9%]   ARCHER: $78.00 [▼ -8.1%]       DELAMAIN CORP: $111.02 [▲ +20.1%]    SOVOIL: $64.20 [▼ -1.0%]    DATA INC: $50.50 [▲ +0.9%]    QUADRA: $71.40 [▼ -10.6%]   ALL FOODS: $40.00 [▼ -3.7%]      NETWORK54: $33.02 [▲ +1.1%]    BASKIN UNDERCOVER: $22.97 [▼ -2.0%]   CYTECH: $110.15 [▲ +0.9%]    DEKER, TANAKA & ROGERS: $163.40 [▼ -0.6%]   EURO BANK: $81.00 [▼ -7.4%]";
+ content: "ARASAKA: $421.50 [▲ +4.2%]   MILITECH: $185.20 [▼ -1.8%]   PETROCHEM: $92.10 [▲ +0.9%]   BIOTECHNICA: $64.40 [▲ +12.4%]   KANG TAO: $312.00 [▼ -5.1%]   TRAUMA TEAM: $740.15 [▲ +1.5%]   NIGHT CORP: $510.40 [▲ +0.2%]   NETWATCH: $890.00 [▼ -0.5%]   SOVOIL: $142.30 [▲ +3.1%]   ZETATECH: $58.90 [▲ +8.7%]   MICROTECH: $94.20 [▼ -2.4%]   NETWORK 54: $215.10 [▲ +0.6%]   DIVERSIFIED MEDIA CORP: $112.50 [▼ -4.1%]   RAYFIELD: $1,450.00 [▲ +0.1%]   HERRERA: $340.25 [▼ -1.2%]   ARCH MOTORCYCLES: $185.00 [▲ +5.6%]   MIGUEL AIRCRAFT: $420.80 [▲ +2.3%]   ORBITAL AIR: $630.50 [▼ -3.7%]   IEC (INT ELEC): $290.10 [▲ +1.1%]   LAZARUS GROUP: $520.00 [▲ +0.8%]   KREVNIKOV BIO: $73.40 [▼ -9.4%]   DYNALAR: $45.60 [▲ +14.2%]   QUADRA: $280.90 [▲ +3.9%]   MALORIAN ARMS: $810.00 [▼ -0.2%]   EBM (EURO BUSINESS): $395.40 [▲ +1.7%]       ARASAKA: $421.50 [▲ +4.2%]   MILITECH: $185.20 [▼ -1.8%]   PETROCHEM: $92.10 [▲ +0.9%]   BIOTECHNICA: $64.40 [▲ +12.4%]   KANG TAO: $312.00 [▼ -5.1%]   TRAUMA TEAM: $740.15 [▲ +1.5%]   NIGHT CORP: $510.40 [▲ +0.2%]   NETWATCH: $890.00 [▼ -0.5%]   SOVOIL: $142.30 [▲ +3.1%]   ZETATECH: $58.90 [▲ +8.7%]   MICROTECH: $94.20 [▼ -2.4%]   NETWORK 54: $215.10 [▲ +0.6%]   DIVERSIFIED MEDIA CORP: $112.50 [▼ -4.1%]   RAYFIELD: $1,450.00 [▲ +0.1%]   HERRERA: $340.25 [▼ -1.2%]   ARCH MOTORCYCLES: $185.00 [▲ +5.6%]   MIGUEL AIRCRAFT: $420.80 [▲ +2.3%]   ORBITAL AIR: $630.50 [▼ -3.7%]   IEC (INT ELEC): $290.10 [▲ +1.1%]   LAZARUS GROUP: $520.00 [▲ +0.8%]   KREVNIKOV BIO: $73.40 [▼ -9.4%]   DYNALAR: $45.60 [▲ +14.2%]   QUADRA: $280.90 [▲ +3.9%]   MALORIAN ARMS: $810.00 [▼ -0.2%]   EBM (EURO BUSINESS): $395.40 [▲ +1.7%]";
   
   position: absolute;
   top: 0;
@@ -66,8 +66,8 @@ html, body {
   padding-left: 100%;
   z-index: 10;
   
-  /* Бесконечный цикл движения */
-  animation: css-ticker 48s linear infinite;
+  /* Скорость замедлена до 75s для комфортного чтения длинного текста */
+  animation: css-ticker 75s linear infinite;
 }
 
 @keyframes css-ticker {
