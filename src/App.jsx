@@ -141,6 +141,8 @@ function App() {
         {!loading && !error && (
           <>
             <div className='info'>
+              <div className="stock-placard">
+              </div>
               <div className='money'>
                 <div id="USD">
                   Доллар США $ — {rates.USDrate} руб.
