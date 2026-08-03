@@ -389,4 +389,3 @@ button:hover::after {
   90% { content: "KANG TAO: $285.50 ▼1.9%"; color: var(--cp-border-red); }
   95% { content: "PETROCHEM: $213.40 ▲2.0%"; color: var(--cp-stock-green); }
 }
-}
