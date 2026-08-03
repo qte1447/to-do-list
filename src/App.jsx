@@ -170,7 +170,7 @@ function App() {
           </>
         )}
         <header>
-          <h1 className='list-header'>Список задач: {todos.length}</h1>
+          <h1 className='list-header'>Текущие задачи: {todos.length}</h1>
         </header>
         <ToDoForm addTask={addTask} />
         {todos.map((todo) => {
