@@ -1,6 +1,4 @@
-/* ==========================================================================
-   CYBERPUNK 2077 INSPIRED APP.CSS (COMPLETE FILE)
-   ========================================================================== */
+/* cyberpunk-2077-inspired App.css with Glitch ONLY on main button */
 
 :root {
   --cp-yellow: #fcee0a;
@@ -8,12 +6,12 @@
   --cp-black: #000000;
   --cp-dark-blue: #030813;
   --cp-cyan: #00f0ff;
-  --cp-glitch-blue: #002288; 
+  --cp-glitch-blue: #002288; /* Глубокий синий для подложки ошибки */
   --cp-gray: #1a1a1a;
   --cp-border-red: #ff003c;
   --off-white: #f5f5f5;
   --text-white: #ffffff;
-  --text-muted-glitch: #aaaaaa; 
+  --text-muted-glitch: #aaaaaa; /* Тусклый серый для текста ошибки */
   --link-color: #d4af37; 
 }
 
@@ -32,7 +30,7 @@ html, body {
 #root {
   min-height: 100vh;
   width: 100vw;
-  background: url("https://staticdelivery.nexusmods.com/mods/3333/images/11622/11622-1705164042-946699428.png") center/cover;
+  background: url("https://nexusmods.com") center/cover;
   background-size: cover;
   background-position: center;
 }
@@ -42,26 +40,18 @@ html, body {
   position: relative;
   z-index: 2;
   border-left: 4px solid var(--cp-cyan);
-  background: transparent;
+  background: rgba(3, 8, 19, 0.85);
 }
 
-/* Info panel - High-tech dashboard */
+/* Info panel */
 .info {
-  display: flex;
-  flex-direction: column; /* Позволяет строке акций встать четко под плашками */
-  align-items: center;
-  gap: 24px;
-  padding: 24px 18px;
-  background: transparent;
-  clip-path: polygon(0 0, 95% 0, 100% 25%, 100% 100%, 5% 100%, 0 75%);
-}
-
-/* Контейнер для плашек внутри панели, чтобы они оставались в ряд */
-.info-row {
   display: flex;
   justify-content: center;
   gap: 24px;
-  width: 100%;
+  padding: 24px 18px;
+  background: var(--cp-black);
+  border: 1px solid var(--cp-border-red);
+  clip-path: polygon(0 0, 95% 0, 100% 25%, 100% 100%, 5% 100%, 0 75%);
 }
 
 .money, .weather-info, .list-header {
@@ -86,36 +76,7 @@ html, body {
   color: var(--cp-cyan);
 }
 
-/* ==========================================================================
-   PURE CSS STOCK TICKER (Встроен в панель info)
-   ========================================================================== */
-.info::after {
-  display: block;
-  width: 100%;
-  max-width: 90%;
-  background: rgba(13, 17, 23, 0.9);
-  border-top: 1px solid rgba(0, 240, 255, 0.15);
-  border-bottom: 1px solid rgba(0, 240, 255, 0.15);
-  padding: 8px 0;
-  margin-top: 12px;
-  
-  /* Шрифты и выравнивание */
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  text-align: center;
-  color: #cccccc;
-  
-  /* Эффект сетки терминала */
-  background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%);
-  background-size: 100% 2px;
-  
-  /* Подключаем цикличную смену заготовленных цен корпораций */
-  content: "ARASAKA [ARA]: $420.69 (+1.2%)  |  MILITECH [MIL]: $315.45 (-0.8%)  |  BIOTECHNICA [BIOT]: $184.20 (+2.1%)  |  KANG TAO [KNGT]: $290.15 (-1.4%)  |  PETROCHEM [PCHM]: $210.50 (+0.5%)";
-  animation: cp-stock-market-update 120s steps(1) infinite;
-}
-
-/* Todo items - Cybernetic slots */
+/* Todo items */
 .item-todo {
   background: rgba(0, 0, 0, 0.8);
   color: var(--off-white);
@@ -148,7 +109,7 @@ html, body {
   color: var(--cp-cyan);
 }
 
-/* Form inputs - Corporate terminal style */
+/* Form inputs */
 form {
   display: flex;
   justify-content: center;
@@ -175,7 +136,7 @@ input:focus {
   background: #161b22;
 }
 
-/* КНОПКА СОХРАНИТЬ С ГЛИТЧЕМ НА HOVER */
+/* ГЛАВНАЯ КНОПКА: Единственное место с эффектом глитча */
 button {
   position: relative;
   padding: 13px 24px;
@@ -211,7 +172,16 @@ button:hover::after {
   opacity: 1;
 }
 
-/* Docs button - Static and eye-friendly */
+@keyframes cp-glitch {
+  0% { clip-path: inset(40% 0 61% 0); transform: skew(-5deg); }
+  20% { clip-path: inset(92% 0 1% 0); transform: skew(3deg); }
+  40% { clip-path: inset(15% 0 80% 0); transform: skew(-3deg); }
+  60% { clip-path: inset(80% 0 5% 0); transform: skew(5deg); }
+  80% { clip-path: inset(3% 0 92% 0); transform: skew(-1deg); }
+  100% { clip-path: inset(40% 0 43% 0); transform: skew(0deg); }
+}
+
+/* Docs button - Полностью статичная и комфортная */
 .docs-button {
   position: fixed;
   bottom: 22px;
@@ -233,7 +203,7 @@ button:hover::after {
   border-color: #666;
 }
 
-/* Modal overlay - Netrunner breach screen */
+/* Modal overlay */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
@@ -338,86 +308,9 @@ button:hover::after {
   border-color: #555;
 }
 
-/* Media query */
 @media (max-width: 700px) {
   .info, .modal-content {
     padding: 14px 8px;
     font-size: 12px;
-  }
-}
-
-/* ==========================================================================
-   ANIMATION KEYFRAMES (GLITCH AND STOCK CORPS)
-   ========================================================================== */
-
-@keyframes cp-glitch {
-  0% { clip-path: inset(40% 0 61% 0); transform: skew(-5deg); }
-  20% { clip-path: inset(92% 0 1% 0); transform: skew(3deg); }
-  40% { clip-path: inset(15% 0 80% 0); transform: skew(-3deg); }
-  60% { clip-path: inset(80% 0 5% 0); transform: skew(5deg); }
-  80% { clip-path: inset(3% 0 92% 0); transform: skew(-1deg); }
-  100% { clip-path: inset(40% 0 43% 0); transform: skew(0deg); }
-}
-
-@keyframes cp-stock-market-update {
-  0%, 100% {
-    content: "ARASAKA [ARA]: $420.69 (+1.2%)  |  MILITECH [MIL]: $315.45 (-0.8%)  |  BIOTECHNICA [BIOT]: $184.20 (+2.1%)  |  KANG TAO [KNGT]: $290.15 (-1.4%)  |  PETROCHEM [PCHM]: $210.50 (+0.5%)";
-  }
-  5% {
-    content: "ARASAKA [ARA]: $421.15 (+0.4%)  |  MILITECH [MIL]: $312.10 (-1.4%)  |  BIOTECHNICA [BIOT]: $186.50 (+1.2%)  |  KANG TAO [KNGT]: $288.40 (-0.6%)  |  PETROCHEM [PCHM]: $211.20 (+0.3%)";
-  }
-  10% {
-    content: "ARASAKA [ARA]: $423.80 (+1.8%)  |  MILITECH [MIL]: $314.00 (+0.6%)  |  BIOTECHNICA [BIOT]: $183.10 (-0.7%)  |  KANG TAO [KNGT]: $291.00 (+0.9%)  |  PETROCHEM [PCHM]: $209.15 (-0.9%)";
-  }
-  15% {
-    content: "ARASAKA [ARA]: $419.40 (-0.3%)  |  MILITECH [MIL]: $309.85 (-2.1%)  |  BIOTECHNICA [BIOT]: $189.40 (+3.4%)  |  KANG TAO [KNGT]: $285.50 (-1.9%)  |  PETROCHEM [PCHM]: $213.40 (+2.0%)";
-  }
-  20% {
-    content: "ARASAKA [ARA]: $422.05 (+1.1%)  |  MILITECH [MIL]: $311.20 (+0.2%)  |  BIOTECHNICA [BIOT]: $187.15 (-0.5%)  |  KANG TAO [KNGT]: $289.90 (+1.5%)  |  PETROCHEM [PCHM]: $212.00 (-0.6%)";
-  }
-  25% {
-    content: "ARASAKA [ARA]: $425.10 (+0.7%)  |  MILITECH [MIL]: $308.00 (-1.0%)  |  BIOTECHNICA [BIOT]: $190.00 (+1.5%)  |  KANG TAO [KNGT]: $287.20 (-0.9%)  |  PETROCHEM [PCHM]: $214.10 (+1.0%)";
-  }
-  30% {
-    content: "ARASAKA [ARA]: $423.00 (-0.5%)  |  MILITECH [MIL]: $310.45 (+0.8%)  |  BIOTECHNICA [BIOT]: $188.50 (-0.8%)  |  KANG TAO [KNGT]: $290.00 (+1.0%)  |  PETROCHEM [PCHM]: $211.50 (-1.2%)";
-  }
-  35% {
-    content: "ARASAKA [ARA]: $418.90 (-1.0%)  |  MILITECH [MIL]: $313.20 (+0.9%)  |  BIOTECHNICA [BIOT]: $192.40 (+2.0%)  |  KANG TAO [KNGT]: $292.15 (+0.7%)  |  PETROCHEM [PCHM]: $208.00 (-1.6%)";
-  }
-  40% {
-    content: "ARASAKA [ARA]: $421.50 (+0.6%)  |  MILITECH [MIL]: $311.00 (-0.7%)  |  BIOTECHNICA [BIOT]: $189.90 (-1.3%)  |  KANG TAO [KNGT]: $289.50 (-0.9%)  |  PETROCHEM [PCHM]: $210.20 (+1.1%)";
-  }
-  45% {
-    content: "ARASAKA [ARA]: $424.30 (+0.7%)  |  MILITECH [MIL]: $307.50 (-1.1%)  |  BIOTECHNICA [BIOT]: $193.10 (+1.7%)  |  KANG TAO [KNGT]: $286.00 (-1.2%)  |  PETROCHEM [PCHM]: $213.00 (+1.3%)";
-  }
-  50% {
-    content: "ARASAKA [ARA]: $422.10 (-0.5%)  |  MILITECH [MIL]: $309.20 (+0.5%)  |  BIOTECHNICA [BIOT]: $191.00 (-1.1%)  |  KANG TAO [KNGT]: $288.30 (+0.8%)  |  PETROCHEM [PCHM]: $211.80 (-0.6%)";
-  }
-  55% {
-    content: "ARASAKA [ARA]: $426.00 (+0.9%)  |  MILITECH [MIL]: $305.10 (-1.3%)  |  BIOTECHNICA [BIOT]: $194.50 (+1.8%)  |  KANG TAO [KNGT]: $284.10 (-1.5%)  |  PETROCHEM [PCHM]: $215.00 (+1.5%)";
-  }
-  60% {
-    content: "ARASAKA [ARA]: $423.50 (-0.6%)  |  MILITECH [MIL]: $307.80 (+0.9%)  |  BIOTECHNICA [BIOT]: $192.00 (-1.3%)  |  KANG TAO [KNGT]: $286.70 (+0.9%)  |  PETROCHEM [PCHM]: $212.40 (-1.2%)";
-  }
-  65% {
-    content: "ARASAKA [ARA]: $419.80 (-0.9%)  |  MILITECH [MIL]: $310.50 (+0.9%)  |  BIOTECHNICA [BIOT]: $195.30 (+1.7%)  |  KANG TAO [KNGT]: $289.40 (+0.9%)  |  PETROCHEM [PCHM]: $209.50 (-1.4%)";
-  }
-  70% {
-    content: "ARASAKA [ARA]: $422.40 (+0.6%)  |  MILITECH [MIL]: $308.10 (-0.8%)  |  BIOTECHNICA [BIOT]: $193.00 (-1.2%)  |  KANG TAO [KNGT]: $287.00 (-0.8%)  |  PETROCHEM [PCHM]: $211.90 (+1.1%)";
-  }
-  75% {
-    content: "ARASAKA [ARA]: $425.90 (+0.8%)  |  MILITECH [MIL]: $304.90 (-1.0%)  |  BIOTECHNICA [BIOT]: $196.20 (+1.6%)  |  KANG TAO [KNGT]: $283.80 (-1.1%)  |  PETROCHEM [PCHM]: $214.50 (+1.2%)";
-  }
-  80% {
-    content: "ARASAKA [ARA]: $423.10 (-0.7%)  |  MILITECH [MIL]: $307.20 (+0.8%)  |  BIOTECHNICA [BIOT]: $194.00 (-1.1%)  |  KANG TAO [KNGT]: $285.90 (+0.7%)  |  PETROCHEM [PCHM]: $212.10 (-1.1%)";
-  }
-  85% {
-    content: "ARASAKA [ARA]: $418.50 (-1.1%)  |  MILITECH [MIL]: $311.00 (+1.2%)  |  BIOTECHNICA [BIOT]: $197.80 (+1.9%)  |  KANG TAO [KNGT]: $288.50 (+0.9%)  |  PETROCHEM [PCHM]: $207.90 (-2.0%)";
-  }
-  90% {
-    content: "ARASAKA [ARA]: $421.20 (+0.6%)  |  MILITECH [MIL]: $309.00 (-0.6%)  |  BIOTECHNICA [BIOT]: $195.10 (-1.4%)  |  KANG TAO [KNGT]: $286.20 (-0.8%)  |  PETROCHEM [PCHM]: $210.00 (+1.0%)";
-  }
-  95% {
-    content: "ARASAKA [ARA]: $424.00 (+0.7%)  |  MILITECH [MIL]: $306.00 (-1.0%)  |  BIOTECHNICA [BIOT]: $198.50 (+1.7%)  |  KANG TAO [KNGT]: $283.00 (-1.1%)  |  PETROCHEM [PCHM]: $213.20 (+1.5%)";
   }
 }
