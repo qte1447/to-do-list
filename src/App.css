@@ -158,12 +158,11 @@ button {
 button:hover {
   background: var(--cp-yellow);
   color: var(--cp-black);
-  /* Внешнее свечение при глитче убрано */
 }
 
 /* Глитч-эффект со словом ERROR без лишней подсветки */
 button::after {
-  content: 'ERROR'; /* Слово внутри глитча изменено на ERROR */
+  content: 'ERROR';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background: var(--cp-glitch-blue);
@@ -189,13 +188,13 @@ button:hover::after {
   100% { clip-path: inset(40% 0 43% 0); transform: skew(0deg); }
 }
 
-/* Docs button - Muted styling, no blinding cyan */
+/* Docs button - Полностью убрана подсветка и глитч-эффекты */
 .docs-button {
   position: fixed;
   bottom: 22px;
   right: 22px;
   padding: 10px 16px;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8);
   color: #a0a0a0;
   border: 1px solid #444;
   cursor: pointer;
@@ -209,7 +208,8 @@ button:hover::after {
   background: var(--cp-gray);
   color: var(--cp-yellow);
   border-color: var(--cp-yellow);
-  box-shadow: 0 0 8px rgba(252, 238, 10, 0.3);
+  box-shadow: none; /* Свечение убрано полностью */
+  animation: none; /* Текстовый глитч отключен */
 }
 
 /* Modal overlay - Netrunner breach screen */
