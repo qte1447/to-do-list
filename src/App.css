@@ -47,14 +47,20 @@ html, body {
   min-height: 100vh;
 }
 
-/* БЕГУЩАЯ СТРОКА АКЦИЙ (БЕЗ ИЗМЕНЕНИЯ HTML) */
+/* БЕГУЩАЯ СТРОКА: 40 УНИКАЛЬНЫХ КОРПОРАЦИЙ ИЗ ЧИСТОГО ТЕКСТА (БЕЗ SVG И HTML) */
 .App::before {
-  content: "ARASAKA: $421.50 [▲ +4.2%]    MILITECH: $185.20 [▼ -1.8%]    PETROCHEM: $92.10 [▲ +0.9%]    BIOTECHNICA: $64.40 [▲ +12.4%]    KANG TAO: $312.00 [▼ -5.1%]        TRAUMA TEAM: $740.15 [▲ +1.5%]    NIGHT CORP: $510.40 [▲ +0.2%]    NETWATCH: $890.00 [▼ -0.5%]    SOVOIL: $142.30 [▲ +3.1%]   ZETATECH: $58.90 [▲ +8.7%]";
+  /* Полный список из 40 уникальных корпораций, продублированный дважды для бесшовной петли */
+  content: "ARASAKA: $421.50 [▲ +4.2%]    MILITECH: $185.20 [▼ -1.8%]    PETROCHEM: $92.10 [▲ +0.9%]    BIOTECHNICA: $64.40 [▲ +12.4%]    KANG TAO: $312.00 [▼ -5.1%]    TRAUMA TEAM: $740.15 [▲ +1.5%]    NIGHT CORP: $510.40 [▲ +0.2%]    NETWATCH: $890.00 [▼ -0.5%]    SOVOIL: $142.30 [▲ +3.1%]    ZETATECH: $58.90 [▲ +8.7%]    MICROTECH: $94.20 [▼ -2.4%]    NETWORK 54: $215.10 [▲ +0.6%]    DIVERSIFIED MEDIA: $112.50 [▼ -4.1%]    RAYFIELD: $1,450.00 [▲ +0.1%]    HERRERA: $340.25 [▼ -1.2%]    ARCH MOTORCYCLES: $185.00 [▲ +5.6%]    MIGUEL AIRCRAFT: $420.80 [▲ +2.3%]    ORBITAL AIR: $630.50 [▼ -3.7%]    IEC (INT ELEC): $290.10 [▲ +1.1%]    LAZARUS GROUP: $520.00 [▲ +0.8%]    KREVNIKOV BIO: $73.40 [▼ -9.4%]    DYNALAR: $45.60 [▲ +14.2%]    QUADRA: $280.90 [▲ +3.9%]    MALORIAN ARMS: $810.00 [▼ -0.2%]    EBM (EURO BUS): $395.40 [▲ +1.7%]    TUTSUYI MOTORS: $135.00 [▼ -2.1%]    CONSTITUTIONAL ARMS: $245.50 [▲ +6.3%]    KIKU CO.: $88.10 [▲ +0.4%]    KENDACHI: $615.00 [▲ +4.8%]    ADRETE TECH: $195.30 [▼ -1.1%]    WORLD NEWS NET: $110.00 [▲ +0.2%]    REGINA MEDIA GROUP: $45.20 [▲ +1.9%]    MAHAGU AUTO: $310.40 [▼ -3.5%]    MILAGRO BIO: $82.70 [▲ +11.2%]    BUDOKAN CORP: $155.60 [▼ -0.8%]    AMPHILE CO.: $98.15 [▲ +2.5%]    SEGOVIA GROUP: $220.40 [▼ -1.7%]    PACIFIC RIM FOODS: $67.90 [▲ +5.1%]    INFOCORP: $415.00 [▼ -0.3%]    KIRA CYBERNETICS: $178.40 [▲ +8.2%]        ARASAKA: $421.50 [▲ +4.2%]    MILITECH: $185.20 [▼ -1.8%]    PETROCHEM: $92.10 [▲ +0.9%]    BIOTECHNICA: $64.40 [▲ +12.4%]    KANG TAO: $312.00 [▼ -5.1%]    TRAUMA TEAM: $740.15 [▲ +1.5%]    NIGHT CORP: $510.40 [▲ +0.2%]    NETWATCH: $890.00 [▼ -0.5%]    SOVOIL: $142.30 [▲ +3.1%]    ZETATECH: $58.90 [▲ +8.7%]    MICROTECH: $94.20 [▼ -2.4%]    NETWORK 54: $215.10 [▲ +0.6%]    DIVERSIFIED MEDIA: $112.50 [▼ -4.1%]    RAYFIELD: $1,450.00 [▲ +0.1%]    HERRERA: $340.25 [▼ -1.2%]    ARCH MOTORCYCLES: $185.00 [▲ +5.6%]    MIGUEL AIRCRAFT: $420.80 [▲ +2.3%]    ORBITAL AIR: $630.50 [▼ -3.7%]    IEC (INT ELEC): $290.10 [▲ +1.1%]    LAZARUS GROUP: $520.00 [▲ +0.8%]    KREVNIKOV BIO: $73.40 [▼ -9.4%]    DYNALAR: $45.60 [▲ +14.2%]    QUADRA: $280.90 [▲ +3.9%]    MALORIAN ARMS: $810.00 [▼ -0.2%]    EBM (EURO BUS): $395.40 [▲ +1.7%]    TUTSUYI MOTORS: $135.00 [▼ -2.1%]    CONSTITUTIONAL ARMS: $245.50 [▲ +6.3%]    KIKU CO.: $88.10 [▲ +0.4%]    KENDACHI: $615.00 [▲ +4.8%]    ADRETE TECH: $195.30 [▼ -1.1%]    WORLD NEWS NET: $110.00 [▲ +0.2%]    REGINA MEDIA GROUP: $45.20 [▲ +1.9%]    MAHAGU AUTO: $310.40 [▼ -3.5%]    MILAGRO BIO: $82.70 [▲ +11.2%]    BUDOKAN CORP: $155.60 [▼ -0.8%]    AMPHILE CO.: $98.15 [▲ +2.5%]    SEGOVIA GROUP: $220.40 [▼ -1.7%]    PACIFIC RIM FOODS: $67.90 [▲ +5.1%]    INFOCORP: $415.00 [▼ -0.3%]    KIRA CYBERNETICS: $178.40 [▲ +8.2%]";
   
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  
+  /* ГЛАВНЫЕ СВОЙСТВА ДЛЯ СНЯТИЯ ОГРАНИЧЕНИЙ БРАУЗЕРА */
+  width: max-content;       /* Элемент растягивается на полную длину текста */
+  white-space: nowrap;      /* Запрещаем перенос слов на новую строку */
+  display: inline-block;
+  
   height: 30px;
   line-height: 30px;
   background: rgba(0, 0, 0, 0.95);
@@ -62,18 +68,24 @@ html, body {
   color: var(--off-white);
   font-size: 11px;
   font-weight: bold;
-  white-space: nowrap;
-  padding-left: 100%;
   z-index: 10;
   
-  /* Бесконечный цикл движения */
-  animation: css-ticker 28s linear infinite;
+  /* Анимация прокрутки на 120 секунд */
+  animation: pure-text-ticker 120s linear infinite;
 }
 
-@keyframes css-ticker {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-100%, 0, 0); }
+/* ИДЕАЛЬНОЕ ТЕКСТОВОЕ ЗАЦИКЛИВАНИЕ */
+@keyframes pure-text-ticker {
+  0% { 
+    transform: translate3d(0, 0, 0); 
+  }
+  100% { 
+    /* Сдвигаем ровно на -50%, так как вторая половина текста полностью идентична первой. 
+       В момент достижения -50% анимация бесшовно прыгает на 0%, создавая вечный поток. */
+    transform: translate3d(-50%, 0, 0); 
+  }
 }
+
 
 /* Info panel */
 .info {
