@@ -1,16 +1,17 @@
-/* cyberpunk-2077-inspired App.css with softer Glitch effects */
+/* cyberpunk-2077-inspired App.css with Glitch ONLY on main button */
 
 :root {
   --cp-yellow: #fcee0a;
-  --cp-muted-yellow: #bfae08; /* Потускневшая версия желтого для мягких эффектов */
+  --cp-muted-yellow: #bfae08; 
   --cp-black: #000000;
   --cp-dark-blue: #030813;
   --cp-cyan: #00f0ff;
-  --cp-glitch-blue: #0044cc; 
+  --cp-glitch-blue: #002288; /* Глубокий синий для подложки ошибки */
   --cp-gray: #1a1a1a;
   --cp-border-red: #ff003c;
   --off-white: #f5f5f5;
   --text-white: #ffffff;
+  --text-muted-glitch: #aaaaaa; /* Тусклый серый для текста ошибки */
   --link-color: #d4af37; 
 }
 
@@ -42,7 +43,7 @@ html, body {
   background: rgba(3, 8, 19, 0.85);
 }
 
-/* Info panel - High-tech dashboard with subtle neon pulsing */
+/* Info panel */
 .info {
   display: flex;
   justify-content: center;
@@ -51,15 +52,8 @@ html, body {
   background: var(--cp-black);
   border: 1px solid var(--cp-border-red);
   clip-path: polygon(0 0, 95% 0, 100% 25%, 100% 100%, 5% 100%, 0 75%);
-  animation: cp-pulse 5s infinite alternate; /* Замедлили пульсацию для меньшего раздражения */
 }
 
-@keyframes cp-pulse {
-  0% { box-shadow: 0 0 2px rgba(255, 0, 60, 0.15); }
-  100% { box-shadow: 0 0 10px rgba(255, 0, 60, 0.3); }
-}
-
-/* Потускневшая подсветка инфо-плашек при наведении */
 .money, .weather-info, .list-header {
   background: rgba(26, 26, 26, 0.9);
   border: 1px solid var(--cp-cyan);
@@ -72,17 +66,17 @@ html, body {
 }
 
 .money:hover, .weather-info:hover, .list-header:hover {
-  color: var(--cp-yellow); /* Текст остается желтым, глаза не режет */
-  background: #111111; /* Фон остается темным */
-  border-color: var(--cp-muted-yellow); /* Рамка меняется на более тусклый янтарный */
-  box-shadow: 0 0 6px rgba(191, 174, 8, 0.25); /* Очень мягкая тень */
+  color: var(--cp-yellow);
+  background: #111111;
+  border-color: var(--cp-muted-yellow);
+  box-shadow: 0 0 6px rgba(191, 174, 8, 0.25);
 }
 
 .weather-icon {
   color: var(--cp-cyan);
 }
 
-/* Todo items - Cybernetic slots */
+/* Todo items */
 .item-todo {
   background: rgba(0, 0, 0, 0.8);
   color: var(--off-white);
@@ -115,7 +109,7 @@ html, body {
   color: var(--cp-cyan);
 }
 
-/* Form inputs - Corporate terminal style */
+/* Form inputs */
 form {
   display: flex;
   justify-content: center;
@@ -142,7 +136,7 @@ input:focus {
   background: #161b22;
 }
 
-/* Button with text GLITCH effect on hover (No outer glowing) */
+/* ГЛАВНАЯ КНОПКА: Единственное место с эффектом глитча */
 button {
   position: relative;
   padding: 13px 24px;
@@ -157,16 +151,15 @@ button {
 }
 
 button:hover {
-  background: var(--cp-muted-yellow); /* При наведении кнопка становится чуть тусклее, а не ярче */
+  background: var(--cp-muted-yellow);
 }
 
-/* Глитч-эффект со словом ERROR без лишней подсветки */
 button::after {
   content: 'ERROR';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--cp-glitch-blue);
-  color: var(--text-white);
+  background: var(--cp-glitch-blue); 
+  color: var(--text-muted-glitch); 
   clip-path: polygon(0 0, 85% 0, 100% 40%, 100% 100%, 15% 100%, 0 60%);
   opacity: 0;
   display: flex;
@@ -188,7 +181,7 @@ button:hover::after {
   100% { clip-path: inset(40% 0 43% 0); transform: skew(0deg); }
 }
 
-/* Docs button - Полностью убрана подсветка и глитч-эффекты */
+/* Docs button - Полностью статичная и комфортная */
 .docs-button {
   position: fixed;
   bottom: 22px;
@@ -206,13 +199,11 @@ button:hover::after {
 
 .docs-button:hover {
   background: var(--cp-gray);
-  color: #dddddd; /* Спокойный белый оттенок вместо желтого */
+  color: #dddddd;
   border-color: #666;
-  box-shadow: none; 
-  animation: none; 
 }
 
-/* Modal overlay - Netrunner breach screen */
+/* Modal overlay */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
@@ -267,7 +258,6 @@ button:hover::after {
   line-height: 1.6;
 }
 
-/* Спокойные ссылки без кислоты */
 .modal-content a {
   color: var(--link-color);
   text-decoration: none;
@@ -287,7 +277,7 @@ button:hover::after {
   font-size: 13px;
 }
 
-/* Tabs - Matrix selection with eye-friendly colors */
+/* Tabs */
 .tabs {
   display: flex;
   gap: 10px;
@@ -314,7 +304,7 @@ button:hover::after {
 }
 
 .tab:hover {
-  color: #dddddd; /* Приглушенный белый вместо яркого желтого */
+  color: #dddddd;
   border-color: #555;
 }
 
@@ -324,3 +314,4 @@ button:hover::after {
     font-size: 12px;
   }
 }
+
