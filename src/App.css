@@ -312,6 +312,96 @@ button:hover::after {
   .info, .modal-content {
     padding: 14px 8px;
     font-size: 12px;
+    /* --- CYBERPUNK 2077 STOCK TICKER (100% PURE CSS / NO HTML CHANGES) --- */
+
+/* Создаем декоративный контейнер под основным блоком приложения */
+.App::after {
+  display: block;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  border-top: 1px solid rgba(0, 240, 255, 0.15);
+  border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+  padding: 8px 0;
+  margin-top: 24px;
+  
+  /* Шрифты и выравнивание */
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  
+  /* Эффект сетки терминала */
+  background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%);
+  background-size: 100% 2px;
+  
+  /* Подключаем цикличную смену заготовленных цен */
+  content: "ARASAKA [ARSARK]: $420.69 ▲1.2%  |  MILITECH [MILTCH]: $315.45 ▼0.8%  |  BIOTECHNICA [BIOTCH]: $184.20 ▲2.1%  |  KANG TAO [KNGTAO]: $290.15 ▼1.4%  |  PETROCHEM [PTRCHM]: $210.50 ▲0.5%";
+  animation: cp-stock-market-update 32s steps(1) infinite;
+}
+
+/* 20 заготовленных состояний рынка акций (меняются каждые 6-8 секунд) */
+@keyframes cp-stock-market-update {
+  0%, 100% {
+    content: "ARASAKA [ARSKA]: $420.69 ▲1.2%  |  MILITECH [MILTCH]: $315.45 ▼0.8%  |  BIOTECHNICA [BIOTCH]: $184.20 ▲2.1%  |  KANG TAO [KNGTAO]: $290.15 ▼1.4%  |  PETROCHEM [PTRCHM]: $210.50 ▲0.5%";
+    color: #cccccc;
+  }
+  5% {
+    content: "ARASAKA [ARSKA]: $421.15 ▲0.4%  |  MILITECH [MILTCH]: $312.10 ▼1.4%  |  BIOTECHNICA [BIOTCH]: $186.50 ▲1.2%  |  KANG TAO [KNGTAO]: $288.40 ▼0.6%  |  PETROCHEM [PTRCHM]: $211.20 ▲0.3%";
+    color: #dddddd;
+  }
+  10% {
+    content: "ARASAKA [ARSKA]: $423.80 ▲1.8%  |  MILITECH [MILTCH]: $314.00 ▲0.6%  |  BIOTECHNICA [BIOTCH]: $183.10 ▼0.7%  |  KANG TAO [KNGTAO]: $291.00 ▲0.9%  |  PETROCHEM [PTRCHM]: $209.15 ▼0.9%";
+  }
+  15% {
+    content: "ARASAKA [ARSKA]: $419.40 ▼0.3%  |  MILITECH [MILTCH]: $309.85 ▼2.1%  |  BIOTECHNICA [BIOTCH]: $189.40 ▲3.4%  |  KANG TAO [KNGTAO]: $285.50 ▼1.9%  |  PETROCHEM [PTRCHM]: $213.40 ▲2.0%";
+  }
+  20% {
+    content: "ARASAKA [ARSKA]: $422.05 ▲1.1%  |  MILITECH [MILTCH]: $311.20 ▲0.2%  |  BIOTECHNICA [BIOTCH]: $187.15 ▼0.5%  |  KANG TAO [KNGTAO]: $289.90 ▲1.5%  |  PETROCHEM [PTRCHM]: $212.00 ▼0.6%";
+  }
+  25% {
+    content: "ARASAKA [ARSKA]: $425.10 ▲0.7%  |  MILITECH [MILTCH]: $308.00 ▼1.0%  |  BIOTECHNICA [BIOTCH]: $190.00 ▲1.5%  |  KANG TAO [KNGTAO]: $287.20 ▼0.9%  |  PETROCHEM [PTRCHM]: $214.10 ▲1.0%";
+  }
+  30% {
+    content: "ARASAKA [ARSKA]: $423.00 ▼0.5%  |  MILITECH [MILTCH]: $310.45 ▲0.8%  |  BIOTECHNICA [BIOTCH]: $188.50 ▼0.8%  |  KANG TAO [KNGTAO]: $290.00 ▲1.0%  |  PETROCHEM [PTRCHM]: $211.50 ▼1.2%";
+  }
+  35% {
+    content: "ARASAKA [ARSKA]: $418.90 ▼1.0%  |  MILITECH [MILTCH]: $313.20 ▲0.9%  |  BIOTECHNICA [BIOTCH]: $192.40 ▲2.0%  |  KANG TAO [KNGTAO]: $292.15 ▲0.7%  |  PETROCHEM [PTRCHM]: $208.00 ▼1.6%";
+  }
+  40% {
+    content: "ARASAKA [ARSKA]: $421.50 ▲0.6%  |  MILITECH [MILTCH]: $311.00 ▼0.7%  |  BIOTECHNICA [BIOTCH]: $189.90 ▼1.3%  |  KANG TAO [KNGTAO]: $289.50 ▼0.9%  |  PETROCHEM [PTRCHM]: $210.20 ▲1.1%";
+  }
+  45% {
+    content: "ARASAKA [ARSKA]: $424.30 ▲0.7%  |  MILITECH [MILTCH]: $307.50 ▼1.1%  |  BIOTECHNICA [BIOTCH]: $193.10 ▲1.7%  |  KANG TAO [KNGTAO]: $286.00 ▼1.2%  |  PETROCHEM [PTRCHM]: $213.00 ▲1.3%";
+  }
+  50% {
+    content: "ARASAKA [ARSKA]: $422.10 ▼0.5%  |  MILITECH [MILTCH]: $309.20 ▲0.5%  |  BIOTECHNICA [BIOTCH]: $191.00 ▼1.1%  |  KANG TAO [KNGTAO]: $288.30 ▲0.8%  |  PETROCHEM [PTRCHM]: $211.80 ▼0.6%";
+  }
+  55% {
+    content: "ARASAKA [ARSKA]: $426.00 ▲0.9%  |  MILITECH [MILTCH]: $305.10 ▼1.3%  |  BIOTECHNICA [BIOTCH]: $194.50 ▲1.8%  |  KANG TAO [KNGTAO]: $284.10 ▼1.5%  |  PETROCHEM [PTRCHM]: $215.00 ▲1.5%";
+  }
+  60% {
+    content: "ARASAKA [ARSKA]: $423.50 ▼0.6%  |  MILITECH [MILTCH]: $307.80 ▲0.9%  |  BIOTECHNICA [BIOTCH]: $192.00 ▼1.3%  |  KANG TAO [KNGTAO]: $286.70 ▲0.9%  |  PETROCHEM [PTRCHM]: $212.40 ▼1.2%";
+  }
+  65% {
+    content: "ARASAKA [ARSKA]: $419.80 ▼0.9%  |  MILITECH [MILTCH]: $310.50 ▲0.9%  |  BIOTECHNICA [BIOTCH]: $195.30 ▲1.7%  |  KANG TAO [KNGTAO]: $289.40 ▲0.9%  |  PETROCHEM [PTRCHM]: $209.50 ▼1.4%";
+  }
+  70% {
+    content: "ARASAKA [ARSKA]: $422.40 ▲0.6%  |  MILITECH [MILTCH]: $308.10 ▼0.8%  |  BIOTECHNICA [BIOTCH]: $193.00 ▼1.2%  |  KANG TAO [KNGTAO]: $287.00 ▼0.8%  |  PETROCHEM [PTRCHM]: $211.90 ▲1.1%";
+  }
+  75% {
+    content: "ARASAKA [ARSKA]: $425.90 ▲0.8%  |  MILITECH [MILTCH]: $304.90 ▼1.0%  |  BIOTECHNICA [BIOTCH]: $196.20 ▲1.6%  |  KANG TAO [KNGTAO]: $283.80 ▼1.1%  |  PETROCHEM [PTRCHM]: $214.50 ▲1.2%";
+  }
+  80% {
+    content: "ARASAKA [ARSKA]: $423.10 ▼0.7%  |  MILITECH [MILTCH]: $307.20 ▲0.8%  |  BIOTECHNICA [BIOTCH]: $194.00 ▼1.1%  |  KANG TAO [KNGTAO]: $285.90 ▲0.7%  |  PETROCHEM [PTRCHM]: $212.10 ▼1.1%";
+  }
+  85% {
+    content: "ARASAKA [ARSKA]: $418.50 ▼1.1%  |  MILITECH [MILTCH]: $311.00 ▲1.2%  |  BIOTECHNICA [BIOTCH]: $197.80 ▲1.9%  |  KANG TAO [KNGTAO]: $288.50 ▲0.9%  |  PETROCHEM [PTRCHM]: $207.90 ▼2.0%";
+  }
+  90% {
+    content: "ARASAKA [ARSKA]: $421.20 ▲0.6%  |  MILITECH [MILTCH]: $309.00 ▼0.6%  |  BIOTECHNICA [BIOTCH]: $195.10 ▼1.4%  |  KANG TAO [KNGTAO]: $286.20 ▼0.8%  |  PETROCHEM [PTRCHM]: $210.00 ▲1.0%";
+  }
+  95% {
+    content: "ARASAKA [ARSKA]: $424.00 ▲0.7%  |  MILITECH [MILTCH]: $306.00 ▼1.0%  |  BIOTECHNICA [BIOTCH]: $198.50 ▲1.7%  |  KANG TAO [KNGTAO]: $283.00 ▼1.1%  |  PETROCHEM [PTRCHM]: $213.20 ▲1.5%";
   }
 }
 
