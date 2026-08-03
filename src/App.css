@@ -52,8 +52,7 @@ html, body {
   align-items: center;
   gap: 24px;
   padding: 24px 18px;
-  background: var(--cp-black);
-  border: 1px solid var(--cp-border-red);
+  background: transparent;
   clip-path: polygon(0 0, 95% 0, 100% 25%, 100% 100%, 5% 100%, 0 75%);
 }
 
