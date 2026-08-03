@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import ToDoForm from "./AddTask";
 import ToDo from "./Task";
-import WorldTime from './WorldTime';
 import axios from 'axios';
 import ApiDocs from "./ApiDocs";
 
@@ -135,10 +134,6 @@ function App() {
   };
 
   return (
-     <>
-    <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 9999 }}>
-      <ClockIframe />
-    </div>
     <>
       <div className="App">
         {loading && <p>Загрузка...</p>}
@@ -193,5 +188,7 @@ function App() {
     </>
   );
 }
+
+export default App;
 
 export default App;
