@@ -13,7 +13,7 @@ const ApiDocs = () => {
           <h3>API Центробанка России</h3>
           <p><strong>Источник:</strong> <a href="https://www.cbr-xml-daily.ru/" target="_blank">cbr-xml-daily.ru</a></p>
           <p><strong>Формат:</strong> JSON</p>
-          <p><strong>Бесплатно:</strong> Да, без ключа</p>
+          <p><strong>Бесплатно:</strong> Да, ключ API не требуется</p>
           <p><strong>Эндпоинт:</strong> <code>GET https://www.cbr-xml-daily.ru/daily_json.js</code></p>
         </div>
       )
@@ -26,7 +26,7 @@ const ApiDocs = () => {
           <h3>CoinGecko API</h3>
           <p><strong>Документация:</strong> <a href="https://docs.coingecko.com/reference/introduction" target="_blank">docs.coingecko.com</a></p>
           <p><strong>Формат:</strong> JSON</p>
-          <p><strong>Бесплатно:</strong> Да, без ключа (10-30 запросов/мин)</p>
+          <p><strong>Бесплатно:</strong> Да, ключ API не требуется</p>
           <p><strong>Эндпоинт:</strong> <code>GET https://api.coingecko.com/api/v3/simple/price</code></p>
         </div>
       )
@@ -39,7 +39,7 @@ const ApiDocs = () => {
           <h3>Open-Meteo API</h3>
           <p><strong>Документация:</strong> <a href="https://open-meteo.com/en/docs" target="_blank">open-meteo.com</a></p>
           <p><strong>Формат:</strong> JSON</p>
-          <p><strong>Бесплатно:</strong> Да, без ключа</p>
+          <p><strong>Бесплатно:</strong> Да, ключ API не требуется</p>
           <p><strong>Эндпоинт:</strong> <code>GET https://api.open-meteo.com/v1/forecast</code></p>
         </div>
       )
@@ -51,7 +51,7 @@ const ApiDocs = () => {
         <div>
           <h3>LocalStorage API</h3>
           <p><strong>Документация:</strong> <a href="https://developer.mozilla.org/ru/docs/Web/API/Window/localStorage" target="_blank">MDN Web Docs</a></p>
-          <p><strong>Тип:</strong> Встроенный API браузера</p>
+          <p><strong>Тип:</strong> Встроенный API в браузере</p>
         </div>
       )
     }
@@ -70,7 +70,7 @@ const ApiDocs = () => {
             
             <div className="modal-header">
               <h2>Документация API</h2>
-              <p className="modal-subtitle">Источники данных проекта</p>
+              <p className="modal-subtitle">Используемые источники данных</p>
             </div>
             
             <div className="tabs">
