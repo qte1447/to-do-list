@@ -135,6 +135,10 @@ function App() {
   };
 
   return (
+     <>
+    <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 9999 }}>
+      <ClockIframe />
+    </div>
     <>
       <div className="App">
         {loading && <p>Загрузка...</p>}
