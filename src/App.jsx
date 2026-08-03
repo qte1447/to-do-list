@@ -3,6 +3,7 @@ import './App.css';
 import ToDoForm from './AddTask';
 import ToDo from './Task';
 import Wordle from './Wordle';
+import WorldTime from './WorldTime';
 import axios from 'axios';
 
 const TASKS_KEY = 'todo-tasks';
@@ -138,6 +139,10 @@ function App() {
           ))}
         </div>
       </div>
+
+      <div className="world-time-section">
+  <WorldTime timezones={['NewYork', 'Moscow', 'Tokyo']} />
+</div>
 
       {/* 3. wordle — фиксирован в правом нижнем углу экрана */}
       <Wordle />
