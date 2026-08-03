@@ -67,7 +67,7 @@ html, body {
   z-index: 10;
   
   /* Бесконечный цикл движения */
-  animation: css-ticker 28s linear infinite;
+  animation: css-ticker 38s linear infinite;
 }
 
 @keyframes css-ticker {
